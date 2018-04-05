@@ -1,0 +1,62 @@
+body {
+    background-color: #252525;
+    margin: 0;
+}
+
+.title-bar {
+    height: 20px;
+    width: 100%;
+    -webkit-app-region: drag;
+    background-color: #252525;
+}
+
+.app {
+    background-color: #353535;
+}
+
+header {
+    padding: 10px 0;
+    padding-left: 10px;
+}
+
+main {
+    padding: 1px 20px;
+}
+
+section {
+    background-color: grey;
+    padding: 5px 10px;
+    margin-bottom: 20px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    padding: 12px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.feed-settings {
+    background-color: #555555;
+    padding: 10px;
+
+    label {
+        margin-right: 10px;
+    }
+}
+
+.episodes {
+    background-color: #222222;
+}
+
+button {
+    background-color: white;
+    border: none;
+    padding: 8px 13px;
+    margin-right: 10px;
+    min-width: 60px;
+}
