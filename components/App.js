@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import FeedEditor from './FeedEditor';
+import EpisodeEditor from './EpisodeEditor';
 
-class Entry extends React.Component {
+class App extends React.Component {
     render() {
         return (
             <div className="app">
@@ -11,17 +13,8 @@ class Entry extends React.Component {
                     <button>New</button>
                 </header>
                 <main>
-                    <section>
-                        <label>Feed Settings</label>
-                        <div className="feed-settings">
-                            <label>Title</label>
-                            <input/>
-                        </div>
-                    </section>
-                    <section>
-                        <label>Episodes</label>
-                        <div className="episodes"></div>
-                    </section>
+                    <FeedEditor/>
+                    <EpisodeEditor/>
                 </main>
                 <footer>
                     <button>Save</button>
@@ -32,4 +25,4 @@ class Entry extends React.Component {
     }
 }
 
-export default Entry;
+export default App;

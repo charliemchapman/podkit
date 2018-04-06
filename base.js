@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Entry from './components/Entry';
+import App from './components/App';
 import styles from './styles/index.scss'
 
 ReactDOM.render(
-    <Entry/>,
+    <App/>,
     document.getElementById('react-app')
   );
