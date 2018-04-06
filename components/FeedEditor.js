@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-function getFeedSection() {
+function getFeedForm() {
     return (
         <div className="feed-settings">
             <div>
@@ -67,7 +67,7 @@ class FeedEditor extends React.Component {
 
         let feedSection;
         if (isOpen){
-            feedSection = getFeedSection();
+            feedSection = getFeedForm();
         }
 
         return (

@@ -15,6 +15,8 @@ class App extends React.Component {
                 <main>
                     <FeedEditor/>
                     <EpisodeEditor/>
+                    <EpisodeEditor/>
+                    <EpisodeEditor/>
                 </main>
                 <footer>
                     <button>Save</button>
