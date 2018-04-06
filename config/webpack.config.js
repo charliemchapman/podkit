@@ -1,4 +1,5 @@
 module.exports = {
+    target: 'electron-main',
     entry: './base.js',
     output: {
       filename: 'bundle.js'
