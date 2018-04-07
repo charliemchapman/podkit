@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom'; 
+import LabelInput from './LabelInput';
 
 class FeedEditor extends React.Component {
     constructor(props){
@@ -41,21 +42,7 @@ class FeedEditor extends React.Component {
             newFeed.rss.channel[0][channelItem] = [newValue];
             this.props.updateFeed(newFeed);
         };
-        return (
-            <div>
-                <label>{label}</label>
-                <input value={channel[channelItem][0]} onChange={onChange}/>
-            </div>
-        )
-    }
-
-    getItemForm(label, value) {
-        return (
-            <div>
-                <label>{label}</label>
-                <input value={value}/>
-            </div>
-        )
+        return <LabelInput label={label} value={channel[channelItem][0]} onChange={onChange}/>
     }
 
     getImageUrlForm(){
@@ -69,10 +56,7 @@ class FeedEditor extends React.Component {
             this.props.updateFeed(newFeed);
         };
         return (
-            <div>
-                <label>Image Url</label>
-                <input value={channel['itunes:image'][0]['$'].href} onChange={onChange}/>
-            </div>
+            <LabelInput label="Image Url" value={channel['itunes:image'][0]['$'].href} onChange={onChange}/>
         )
     }
 
@@ -87,10 +71,7 @@ class FeedEditor extends React.Component {
             this.props.updateFeed(newFeed);
         };
         return (
-            <div>
-                <label>Image Url</label>
-                <input value={channel['itunes:category'][0]['$'].text} onChange={onChange}/>
-            </div>
+            <LabelInput label="Image Url" value={channel['itunes:category'][0]['$'].text} onChange={onChange}/>
         )
     }
 

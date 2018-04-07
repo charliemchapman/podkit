@@ -1,53 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import LabelInput from './LabelInput';
 
 function getEpisodeForm() {
     return (
         <div className="feed-settings">
-            <div>
-                <label>Title</label>
-                <input/>
-            </div>
-            <div>
-                <label>Link</label>
-                <input/>
-            </div>
-            <div>
-                <label>Language</label>
-                <input/>
-            </div>
-            <div>
-                <label>Copyright</label>
-                <input/>
-            </div>
-            <div>
-                <label>Subtitle</label>
-                <input/>
-            </div>
-            <div>
-                <label>Author</label>
-                <input/>
-            </div>
-            <div>
-                <label>Summary</label>
-                <input/>
-            </div>
-            <div>
-                <label>Owner Name</label>
-                <input/>
-            </div>
-            <div>
-                <label>Owner Email</label>
-                <input/>
-            </div>
-            <div>
-                <label>Image Url</label>
-                <input/>
-            </div>
-            <div>
-                <label>Category</label>
-                <input/>
-            </div>
+            <LabelInput label="Title"/>
+            <LabelInput label="Link"/>
+            <LabelInput label="Language"/>
+            <LabelInput label="Copyright"/>
+            <LabelInput label="Subtitle"/>
+            <LabelInput label="Author"/>
+            <LabelInput label="Summary"/>
+            <LabelInput label="Owner Name"/>
+            <LabelInput label="Owner Email"/>
+            <LabelInput label="Image Url"/>
+            <LabelInput label="Category"/>
         </div>
     );
 }
