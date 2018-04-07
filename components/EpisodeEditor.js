@@ -32,6 +32,7 @@ class EpisodeEditor extends React.Component {
         const { isOpen } = this.state;
         const toggle = ()=>this.setState({isOpen: !isOpen});
         const arrowClass = isOpen ? 'arrow-down' : 'arrow-right';
+        const title = this.props.episodeXml.title[0];
 
         let feedSection;
         if (isOpen){
@@ -42,7 +43,7 @@ class EpisodeEditor extends React.Component {
             <section>
                 <div className="section-header" onClick={toggle}>
                     <div className={arrowClass}/>
-                    <span>Episode Title</span>
+                    <span>{title}</span>
                 </div>
                 { feedSection }
             </section>
