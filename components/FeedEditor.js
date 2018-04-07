@@ -31,67 +31,84 @@ class FeedEditor extends React.Component {
         );
     }
 
-    getFeedForm(feed) {
+    getChannelItemForm(label, channelItem) {
+        const feed = this.props.feed;
         const channel = feed.rss.channel[0];
-        const title = channel.title[0];
-        const link = channel.link[0];
-        const language = channel.language[0];
-        const copywright = "";
-        const subtitle = channel['itunes:subtitle'][0];
-        const author = channel['itunes:author'][0];
-        const summary = channel['itunes:summary'][0];
-        const ownerName = "";
-        const ownerEmail = "";
-        const imageUrl = channel['itunes:image'][0]['$'].href;
-        const category = channel['itunes:category'][0]['$'].text;
+        const onChange = (e)=>{
+            const newValue = e.target.value;
+            const newFeed = { ...feed, rss: { ...feed.rss, channel: [{...feed.rss.channel[0]}]} };
+            newFeed.rss.channel[0][channelItem] = { ...newFeed.rss.channel[0][channelItem] };
+            newFeed.rss.channel[0][channelItem] = [newValue];
+            this.props.updateFeed(newFeed);
+        };
+        return (
+            <div>
+                <label>{label}</label>
+                <input value={channel[channelItem][0]} onChange={onChange}/>
+            </div>
+        )
+    }
+
+    getItemForm(label, value) {
+        return (
+            <div>
+                <label>{label}</label>
+                <input value={value}/>
+            </div>
+        )
+    }
+
+    getImageUrlForm(){
+        const feed = this.props.feed;
+        const channel = feed.rss.channel[0];
+        const onChange = (e)=>{
+            const newValue = e.target.value;
+            const newFeed = { ...feed, rss: { ...feed.rss, channel: [{...feed.rss.channel[0]}]} };
+            newFeed.rss.channel[0]['itunes:image'] = { ...newFeed.rss.channel[0]['itunes:image'] };
+            newFeed.rss.channel[0]['itunes:image'] = [{$: {href: newValue}}];
+            this.props.updateFeed(newFeed);
+        };
+        return (
+            <div>
+                <label>Image Url</label>
+                <input value={channel['itunes:image'][0]['$'].href} onChange={onChange}/>
+            </div>
+        )
+    }
+
+    getCategoryForm(){
+        const feed = this.props.feed;
+        const channel = feed.rss.channel[0];
+        const onChange = (e)=>{
+            const newValue = e.target.value;
+            const newFeed = { ...feed, rss: { ...feed.rss, channel: [{...feed.rss.channel[0]}]} };
+            newFeed.rss.channel[0]['itunes:category'] = { ...newFeed.rss.channel[0]['itunes:category'] };
+            newFeed.rss.channel[0]['itunes:category'] = [{$: {href: newValue}}];
+            this.props.updateFeed(newFeed);
+        };
+        return (
+            <div>
+                <label>Image Url</label>
+                <input value={channel['itunes:category'][0]['$'].text} onChange={onChange}/>
+            </div>
+        )
+    }
+
+    getFeedForm(feed) {
+        const channel = this.props.feed.rss.channel[0];
         const isExplicit =channel['itunes:explicit'][0].match("yes|explicit|true");
 
         return (
             <div className="feed-settings">
-                <div>
-                    <label>Title</label>
-                    <input value={title}/>
-                </div>
-                <div>
-                    <label>Link</label>
-                    <input value={link}/>
-                </div>
-                <div>
-                    <label>Language</label>
-                    <input value={language}/>
-                </div>
-                <div>
-                    <label>Copywright</label>
-                    <input value={copywright}/>
-                </div>
-                <div>
-                    <label>Subtitle</label>
-                    <input value={subtitle}/>
-                </div>
-                <div>
-                    <label>Author</label>
-                    <input value={author}/>
-                </div>
-                <div>
-                    <label>Summary</label>
-                    <input value={summary}/>
-                </div>
-                <div>
-                    <label>Owner Name</label>
-                    <input value={ownerName}/>
-                </div>
-                <div>
-                    <label>Owner Email</label>
-                    <input value={ownerEmail}/>
-                </div>
-                <div>
-                    <label>Image Url</label>
-                    <input value={imageUrl}/>
-                </div>
-                <div>
-                    <label>Category</label>
-                    <input value={category}/>
-                </div>
+                { this.getChannelItemForm('Title', 'title') }
+                { this.getChannelItemForm('Link', 'link') }
+                { this.getChannelItemForm('lastBuildDate', 'lastBuildDate') }
+                { this.getChannelItemForm('Language', 'language') }
+                { this.getChannelItemForm('Subtitle', 'itunes:subtitle') }
+                { this.getChannelItemForm('Author', 'itunes:author') }
+                { this.getChannelItemForm('Summary', 'itunes:summary') }
+                { this.getImageUrlForm() }
+                { this.getCategoryForm() }
                 <div>
                     <label>Explicit</label>
                     <input type="checkbox" checked={isExplicit}/>

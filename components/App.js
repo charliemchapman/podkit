@@ -11,8 +11,17 @@ class App extends React.Component {
         super(props);
         this.state = {
             xmlString: null,
+            feed: null
         }
+
         this.openFile = this.openFile.bind(this);
+        this.saveFile = this.saveFile.bind(this);
+        this.saveAs = this.saveAs.bind(this);
+        this.updateFeed = this.updateFeed.bind(this);
+    }
+
+    updateFeed(updatedFile) {
+        this.setState({ feed: updatedFile });
     }
 
     openFile(){
@@ -36,19 +45,44 @@ class App extends React.Component {
         });
     }
 
+    saveFile(fileString) {
+        dialog.showSaveDialog((fileName) => {
+            if (fileName === undefined){
+                console.log("You didn't save the file");
+                return;
+            }
+        
+            // fileName is a string that contains the path and filename created in the save file dialog.  
+            fs.writeFile(fileName, fileString, (err) => {
+                if(err){
+                    alert("An error ocurred creating the file "+ err.message)
+                }
+                            
+                alert("The file has been succesfully saved");
+            });
+        }); 
+    }
+
+    saveAs() {
+        const { feed } = this.state;
+        var builder = new xml2js.Builder();
+        var xmlString = builder.buildObject(feed);
+
+        this.saveFile(xmlString);
+    }
+
     render() {
-        console.log(this.state);
+        const saveDisabled = !this.feed;
+
         return (
             <div className="app">
                 <div className="title-bar"/>
                 <header>
                     <button onClick={this.openFile}>Open</button>
-                    <button>New</button>
                 </header>
-                <Editor xmlString={this.state.xmlString} feed={this.state.feed}/>
+                <Editor xmlString={this.state.xmlString} feed={this.state.feed} updateFeed={this.updateFeed}/>
                 <footer>
-                    <button>Save</button>
-                    <button>Save As</button>
+                    <button onClick={this.saveAs} disabled={saveDisabled}>Save As</button>
                 </footer>
             </div>
         );

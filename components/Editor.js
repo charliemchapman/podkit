@@ -10,7 +10,7 @@ class Editor extends React.Component {
         }
         return (
             <main>
-                <FeedEditor feed={this.props.feed}/>
+                <FeedEditor feed={this.props.feed} updateFeed={this.props.updateFeed}/>
                 <EpisodeEditor/>
                 <h3>Raw XML</h3>
                 <div>{this.props.xmlString}</div>
