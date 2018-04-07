@@ -44,6 +44,7 @@ class FeedEditor extends React.Component {
         const ownerEmail = "";
         const imageUrl = channel['itunes:image'][0]['$'].href;
         const category = channel['itunes:category'][0]['$'].text;
+        const isExplicit =channel['itunes:explicit'][0].match("yes|explicit|true");
 
         return (
             <div className="feed-settings">
@@ -90,6 +91,10 @@ class FeedEditor extends React.Component {
                 <div>
                     <label>Category</label>
                     <input value={category}/>
+                </div>
+                <div>
+                    <label>Explicit</label>
+                    <input type="checkbox" checked={isExplicit}/>
                 </div>
             </div>
         );
