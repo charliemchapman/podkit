@@ -11,7 +11,14 @@ class Editor extends React.Component {
 
         const items = this.props.feed.rss.channel[0].item;
         const episodes = items.map((item, i)=>{
-            return <EpisodeEditor episodeXml={item}/>
+            const updateEpisode = (updatedEpisode)=>{
+                const feed = this.props.feed;
+                const newFeed = { ...feed, rss: { ...feed.rss, channel: [{...feed.rss.channel[0]}]} };
+                newFeed.rss.channel[0].item[i] = updatedEpisode;
+                this.props.updateFeed(newFeed);
+            };
+
+            return <EpisodeEditor episodeXml={item} feed={this.props.feed} updateEpisode={updateEpisode}/>
         })
 
         return (

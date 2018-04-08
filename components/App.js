@@ -39,6 +39,7 @@ class App extends React.Component {
 
                 const setFeed = (xmlString, feed) => this.setState({ xmlString, feed});
                 parser.parseString(data, function (err, result) {
+                    console.log('Opened', result);
                     setFeed(data, result);
                 });
             });
