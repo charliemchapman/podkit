@@ -21,12 +21,14 @@ class Editor extends React.Component {
             return <EpisodeEditor episodeXml={item} feed={this.props.feed} updateEpisode={updateEpisode}/>
         })
 
+        const title = this.props.feed.rss.channel[0].title[0]
+
         return (
             <main>
+                <h2>{title}</h2>
                 <FeedEditor feed={this.props.feed} updateFeed={this.props.updateFeed}/>
+                <h2>Episodes</h2>
                 {episodes}
-                <h3>Raw XML</h3>
-                <div>{this.props.xmlString}</div>
             </main>
         );
     }
