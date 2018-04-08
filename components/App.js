@@ -73,7 +73,7 @@ class App extends React.Component {
     }
 
     render() {
-        const saveDisabled = !this.feed;
+        const saveDisabled = !this.state.feed;
 
         return (
             <div className="app">

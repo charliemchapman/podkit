@@ -12,7 +12,6 @@ class EpisodeEditor extends React.Component {
 
     getChannelItemForm(label, channelItem) {
         const onChange = (e)=>{
-            console.log('EVENT: ', e.target.value);
             const newValue = e.target.value;
             const newEpisode = {...this.props.episodeXml}
             newEpisode[channelItem] =  [newValue]
