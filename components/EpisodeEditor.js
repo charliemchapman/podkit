@@ -6,7 +6,7 @@ class EpisodeEditor extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            isOpen: false
+            
         }
     }
 
@@ -42,24 +42,13 @@ class EpisodeEditor extends React.Component {
     }
 
     render() {
-        const { isOpen } = this.state;
-        const toggle = ()=>this.setState({isOpen: !isOpen});
-        const arrowClass = isOpen ? 'arrow-down' : 'arrow-right';
         const title = this.props.episodeXml.title[0];
 
-        let feedSection;
-        if (isOpen){
-            feedSection = this.getEpisodeForm();
-        }
-
         return (
-            <section>
-                <div className="section-header" onClick={toggle}>
-                    <div className={arrowClass}/>
-                    <span>{title}</span>
-                </div>
-                { feedSection }
-            </section>
+            <div className="editor">
+                <h2>{title}</h2>
+                { this.getEpisodeForm() }
+            </div>
         );
     }
 }

@@ -6,29 +6,16 @@ class FeedEditor extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            isOpen: false
         }
         this.getFeedForm = this.getFeedForm.bind(this);
     }
 
     render() {
-        const { isOpen } = this.state;
-        const toggle = ()=>this.setState({isOpen: !isOpen});
-        const arrowClass = isOpen ? 'arrow-down' : 'arrow-right';
-
-        let feedSection;
-        if (isOpen){
-            feedSection = this.getFeedForm(this.props.feed);
-        }
-
         return (
-            <section>
-                <div className="section-header" onClick={toggle}>
-                    <div className={arrowClass}/>
-                    <span>Feed Settings</span>
-                </div>
-                { feedSection }
-            </section>
+            <div className="editor">
+                <h2>Feed Settings</h2>
+                { this.getFeedForm(this.props.feed) }
+            </div>
         );
     }
 

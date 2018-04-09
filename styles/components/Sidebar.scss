@@ -1,0 +1,27 @@
+.sidebar {
+    background-color:grey;
+    width: 200px;
+    overflow-y: scroll;
+    height: 100vh;
+
+    button {
+        width: 100%;
+    }
+
+    section {
+        margin: 0;
+        padding: 0;
+    }
+
+    &__episode {
+        height: 19px;
+        overflow: hidden;
+        margin: 2px 0;
+        padding: 0 7px;
+        cursor: pointer;
+
+        &--selected {
+            background-color: #0b449a;
+        }
+    }
+}

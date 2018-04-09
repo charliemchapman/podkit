@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Editor from './Editor';
+import Sidebar from './Sidebar';
 
 const { dialog } = require('electron').remote;
 const fs = require("fs");
@@ -11,13 +12,15 @@ class App extends React.Component {
         super(props);
         this.state = {
             xmlString: null,
-            feed: null
+            feed: null,
+            selectedEpisodeIndex: -1
         }
 
         this.openFile = this.openFile.bind(this);
         this.saveFile = this.saveFile.bind(this);
         this.saveAs = this.saveAs.bind(this);
         this.updateFeed = this.updateFeed.bind(this);
+        this.onEpisodeSelectionChange = this.onEpisodeSelectionChange.bind(this);
     }
 
     updateFeed(updatedFile) {
@@ -72,18 +75,30 @@ class App extends React.Component {
         this.saveFile(xmlString);
     }
 
+    onEpisodeSelectionChange(episodeIndex){
+        this.setState({selectedEpisodeIndex: episodeIndex});
+    }
+
     render() {
         const saveDisabled = !this.state.feed;
 
         return (
             <div className="app">
-                <header>
-                    <button onClick={this.openFile}>Open</button>
-                </header>
-                <Editor xmlString={this.state.xmlString} feed={this.state.feed} updateFeed={this.updateFeed}/>
-                <footer>
-                    <button onClick={this.saveAs} disabled={saveDisabled}>Save As</button>
-                </footer>
+                <Sidebar 
+                    feed={this.state.feed} 
+                    openFile={this.openFile}
+                    selectedEpisodeIndex={this.state.selectedEpisodeIndex}
+                    onSelectionChanged={this.onEpisodeSelectionChange}/>
+                <main>
+                    <Editor 
+                        xmlString={this.state.xmlString} 
+                        feed={this.state.feed} 
+                        updateFeed={this.updateFeed} 
+                        selectedEpisodeIndex={this.state.selectedEpisodeIndex}/>
+                    <footer>
+                        <button onClick={this.saveAs} disabled={saveDisabled}>Save As</button>
+                    </footer>
+                </main>
             </div>
         );
     }
