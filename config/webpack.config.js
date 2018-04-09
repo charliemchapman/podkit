@@ -1,7 +1,7 @@
 module.exports = {
     target: 'electron-main',
     entry: './base.js',
-    devtool: 'source-map',
+    devtool: 'eval-source-map',
     output: {
       filename: 'bundle.js'
     },
