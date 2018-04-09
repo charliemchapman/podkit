@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import EpisodeEditor from './EpisodeEditor';
 import FeedEditor from './FeedEditor';
+import Button from 'material-ui/Button';
 
 class Editor extends React.Component {
     render() {
@@ -26,7 +27,7 @@ class Editor extends React.Component {
         return (
             <div className="sidebar">
                 <section>
-                    <button onClick={this.props.openFile}>Open</button>
+                    <Button onClick={this.props.openFile} variant="raised" color="primary">Open</Button>
                 </section>
                 <section>
                     { feedSettingsButton }

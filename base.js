@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './components/App';
 import styles from './styles/index.scss';
 require('typeface-roboto');
+require('material-design-icons');
 
 ReactDOM.render(
     <App/>,
