@@ -77,7 +77,6 @@ class App extends React.Component {
 
         return (
             <div className="app">
-                <div className="title-bar"/>
                 <header>
                     <button onClick={this.openFile}>Open</button>
                 </header>
