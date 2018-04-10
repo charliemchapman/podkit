@@ -14,7 +14,7 @@ class EpisodeEditor extends React.Component {
         const onChange = (e)=>{
             const newValue = e.target.value;
             const newEpisode = {...this.props.episodeXml}
-            newEpisode[channelItem] =  [newValue]
+            newEpisode[channelItem] =  [newValue];
             this.props.updateEpisode(newEpisode);
         };
         return <LabelInput label={label} value={this.props.episodeXml[channelItem][0]} onChange={onChange}/>
