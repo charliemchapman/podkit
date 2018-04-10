@@ -1,8 +1,8 @@
 .sidebar {
-    background-color:grey;
     width: 200px;
     overflow-y: scroll;
     height: 100vh;
+    border-right: 1px solid #ccc;
 
     button {
         margin: 10px 10px;
@@ -22,7 +22,7 @@
         cursor: pointer;
 
         &--selected {
-            background-color: #0b449a;
+            background-color: #ccc;
         }
     }
 }

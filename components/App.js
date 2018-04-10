@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Editor from './Editor';
 import Sidebar from './Sidebar';
+import OpenFeed from './OpenFeed';
+import Button from 'material-ui/Button';
 
 const { dialog } = require('electron').remote;
 const fs = require("fs");
@@ -80,7 +82,11 @@ class App extends React.Component {
     }
 
     render() {
-        const saveDisabled = !this.state.feed;
+        if (!this.state.xmlString){
+            return <OpenFeed openFile={this.openFile}/>
+        }
+
+        const isDirty = !!this.state.feed;
 
         return (
             <div className="app">
@@ -88,16 +94,14 @@ class App extends React.Component {
                     feed={this.state.feed} 
                     openFile={this.openFile}
                     selectedEpisodeIndex={this.state.selectedEpisodeIndex}
-                    onSelectionChanged={this.onEpisodeSelectionChange}/>
+                    onSelectionChanged={this.onEpisodeSelectionChange}
+                    isDirty={isDirty}/>
                 <main>
                     <Editor 
                         xmlString={this.state.xmlString} 
                         feed={this.state.feed} 
                         updateFeed={this.updateFeed} 
                         selectedEpisodeIndex={this.state.selectedEpisodeIndex}/>
-                    <footer>
-                        <button onClick={this.saveAs} disabled={saveDisabled}>Save As</button>
-                    </footer>
                 </main>
             </div>
         );

@@ -6,7 +6,7 @@ import Button from 'material-ui/Button';
 
 class Editor extends React.Component {
     render() {
-        const { selectedEpisodeIndex, onSelectionChanged} = this.props;
+        const { selectedEpisodeIndex, onSelectionChanged, isDirty} = this.props;
 
         let feedSettingsButton;
         let episodeButtons;
@@ -24,10 +24,12 @@ class Editor extends React.Component {
             });
         }
 
+        const saveDisabled = !this.props.isDirty;
+
         return (
             <div className="sidebar">
                 <section>
-                    <Button onClick={this.props.openFile} variant="raised" color="primary">Open</Button>
+                    <Button onClick={this.saveAs} disabled={saveDisabled} variant="raised" color="primary">SAVE</Button>
                 </section>
                 <section>
                     { feedSettingsButton }
