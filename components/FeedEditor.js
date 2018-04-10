@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom'; 
 import LabelInput from './LabelInput';
+import Typography from 'material-ui/Typography';
 
 class FeedEditor extends React.Component {
     constructor(props){
@@ -13,7 +14,7 @@ class FeedEditor extends React.Component {
     render() {
         return (
             <div className="editor">
-                <h2>Feed Settings</h2>
+                <Typography variant="headline">Feed Settings</Typography>
                 { this.getFeedForm(this.props.feed) }
             </div>
         );
@@ -78,7 +79,7 @@ class FeedEditor extends React.Component {
                 { this.getImageUrlForm() }
                 { this.getCategoryForm() }
                 <div>
-                    <label>Explicit</label>
+                    <label><Typography variant="body1">Explicit</Typography></label>
                     <input type="checkbox" checked={isExplicit}/>
                 </div>
             </div>

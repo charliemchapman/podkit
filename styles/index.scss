@@ -7,6 +7,7 @@ body {
 
 .app {
     display: flex;
+    font-family: 'Roboto';
 }
 
 header {
@@ -20,9 +21,13 @@ main {
 }
 
 .editor {
-    padding: 0 20px;
     height: 100vh;
     overflow-y: scroll;
+    padding: 0px 15px;
+
+    h1 {
+        margin-top: 15px;
+    }
 }
 
 section {
@@ -31,9 +36,6 @@ section {
 }
 
 .feed-settings {
-    padding: 10px;
-    margin-top: 10px;
-
     label {
         margin-right: 10px;
         flex-basis: 130px;
@@ -43,7 +45,6 @@ section {
         flex-grow: 1;
         background-color: inherit;
         border: 1px solid #888;
-        font-size: 1.2em;
         padding: 5px 10px;
     }
 

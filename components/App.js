@@ -21,6 +21,7 @@ class App extends React.Component {
         this.openFile = this.openFile.bind(this);
         this.saveFile = this.saveFile.bind(this);
         this.saveAs = this.saveAs.bind(this);
+        this.onClose = this.onClose.bind(this);
         this.updateFeed = this.updateFeed.bind(this);
         this.onEpisodeSelectionChange = this.onEpisodeSelectionChange.bind(this);
     }
@@ -76,6 +77,10 @@ class App extends React.Component {
         this.saveFile(xmlString);
     }
 
+    onClose() {
+        this.setState({xmlString: null, feed: null, selectedEpisodeIndex: -1});
+    }
+
     onEpisodeSelectionChange(episodeIndex){
         this.setState({selectedEpisodeIndex: episodeIndex});
     }
@@ -90,11 +95,12 @@ class App extends React.Component {
         return (
             <div className="app">
                 <Sidebar 
-                    feed={this.state.feed} 
-                    openFile={this.openFile}
-                    selectedEpisodeIndex={this.state.selectedEpisodeIndex}
-                    onSelectionChanged={this.onEpisodeSelectionChange}
-                    isDirty={isDirty}/>
+                    feed={ this.state.feed } 
+                    openFile={ this.openFile }
+                    selectedEpisodeIndex={ this.state.selectedEpisodeIndex }
+                    onSelectionChanged={ this.onEpisodeSelectionChange }
+                    isDirty={ isDirty }
+                    onClose={ this.onClose }/>
                 <main>
                     <Editor 
                         xmlString={this.state.xmlString} 

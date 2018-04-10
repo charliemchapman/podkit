@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import LabelInput from './LabelInput';
+import Typography from 'material-ui/Typography';
 
 class EpisodeEditor extends React.Component {
     constructor(props){
@@ -46,7 +47,7 @@ class EpisodeEditor extends React.Component {
 
         return (
             <div className="editor">
-                <h2>{title}</h2>
+                <Typography variant="headline">{title}</Typography>
                 { this.getEpisodeForm() }
             </div>
         );

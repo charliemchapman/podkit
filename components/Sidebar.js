@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom';
 import EpisodeEditor from './EpisodeEditor';
 import FeedEditor from './FeedEditor';
 import Button from 'material-ui/Button';
+import Typography from 'material-ui/Typography';
 
 class Editor extends React.Component {
     render() {
-        const { selectedEpisodeIndex, onSelectionChanged, isDirty} = this.props;
+        const { selectedEpisodeIndex, onSelectionChanged, isDirty, onClose } = this.props;
 
         let feedSettingsButton;
         let episodeButtons;
@@ -20,16 +21,19 @@ class Editor extends React.Component {
             episodeButtons = items.map((item, index)=>{
                 const onEpisodeClick = ()=> onSelectionChanged(index);
                 const selectedClass = selectedEpisodeIndex === index ? 'sidebar__episode--selected' : '';
-                return <div className={`sidebar__episode ${selectedClass}`} onClick={onEpisodeClick}>{item.title[0]}</div>
+                return (
+                    <div className={`sidebar__episode ${selectedClass}`} onClick={onEpisodeClick}>
+                        {item.title[0]}
+                    </div>
+                );
             });
         }
-
-        const saveDisabled = !this.props.isDirty;
 
         return (
             <div className="sidebar">
                 <section>
-                    <Button onClick={this.saveAs} disabled={saveDisabled} variant="raised" color="primary">SAVE</Button>
+                    <Button onClick={this.saveAs} variant="raised" color="primary">SAVE</Button>
+                    <Button onClick={onClose} variant="raised" color="secondary">CLOSE</Button>
                 </section>
                 <section>
                     { feedSettingsButton }
