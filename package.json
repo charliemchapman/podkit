@@ -27,6 +27,7 @@
     "webpack-cli": "^2.0.13"
   },
   "dependencies": {
+    "npm": "^5.8.0",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
     "typeface-roboto": "0.0.54",

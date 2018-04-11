@@ -29,6 +29,9 @@ class Editor extends React.Component {
                     <button onClick={this.props.openFile}>Open</button>
                 </section>
                 <section>
+                    <button className="sidebar__addEpisode" onClick={this.props.addNewEpisode}>New Episode</button>
+                </section>
+                <section>
                     { feedSettingsButton }
                     { episodeButtons }
                 </section>

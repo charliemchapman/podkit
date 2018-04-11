@@ -21,6 +21,7 @@ class App extends React.Component {
         this.saveAs = this.saveAs.bind(this);
         this.updateFeed = this.updateFeed.bind(this);
         this.onEpisodeSelectionChange = this.onEpisodeSelectionChange.bind(this);
+        this.addNewEpisode = this.addNewEpisode.bind(this);
     }
 
     updateFeed(updatedFile) {
@@ -79,6 +80,57 @@ class App extends React.Component {
         this.setState({selectedEpisodeIndex: episodeIndex});
     }
 
+    addNewEpisode() {
+        const item = {
+            /*'item': {*/
+                'title': null,
+                'dc:creator': null,
+                'pubDate': null,
+                'link': null,
+                'guid': [{           
+                        isPermaLink: null
+                    }],
+                'description': null, /*CDATA*/
+                'itunes:author': null,
+                'itunes:subtitle': null,
+                'itunes:explicit': 'no',
+                'itunes:duration': null,
+                'itunes:image': [{           
+                    href: null
+                }],/*href*/
+                'content:encoded': null, /*CDATA*/
+                'enclosure': [{           
+                    isDefault: null,
+                    length: null,
+                    medium: null,
+                    type: null,
+                    url: null
+                }],
+                'media:content':[{           
+                    isDefault: null,
+                    length: null,
+                    medium: null,
+                    type: null,
+                    url: null
+                }],
+            /*}*/
+        }        
+        const feed = this.state.feed;
+        const newItem = {...feed.rss.channel[0].item}
+        const newChannel = {...feed.rss.channel, item: newItem};
+        const newRss = {...feed.rss, channel: newChannel}
+        const newFeed = { ...feed, rss: newRss} 
+       
+        newItem[0] = item;
+        for(var i=0; i< Object.keys(feed.rss.channel[0].item).length; i++) {
+          newItem[i+1] = feed.rss.channel[0].item[i];
+        }
+
+        newFeed.rss.channel[0].item = newItem;
+        this.updateFeed(newFeed);
+    }
+
+
     render() {
         const saveDisabled = !this.state.feed;
 
@@ -88,7 +140,8 @@ class App extends React.Component {
                     feed={this.state.feed} 
                     openFile={this.openFile}
                     selectedEpisodeIndex={this.state.selectedEpisodeIndex}
-                    onSelectionChanged={this.onEpisodeSelectionChange}/>
+                    onSelectionChanged={this.onEpisodeSelectionChange}
+                    addNewEpisode={this.addNewEpisode}/>
                 <main>
                     <Editor 
                         xmlString={this.state.xmlString} 
@@ -103,5 +156,25 @@ class App extends React.Component {
         );
     }
 }
+
+
+const newEpisodeXml = 
+    '<item>' +
+        '<title></title>' +
+        '<dc:creator></dc:creator>' +
+        '<pubDate></pubDate>' +
+        '<link></link>' +
+        '<guid isPermaLink="false"></guid>' +
+        '<description><![CDATA[]]></description>' +
+        '<itunes:author></itunes:author>' +
+        '<itunes:subtitle></itunes:subtitle>' +
+        '<itunes:explicit>no</itunes:explicit>' +
+        '<itunes:duration></itunes:duration>' +
+        '<itunes:image href=""/>' +
+        '<content:encoded><![CDATA[]]></content:encoded>' +
+        '<enclosure url="" length="" type=""/>' +
+        '<media:content url="" length="" type="" isDefault="" medium=""/>' +
+    '</item>'
+
 
 export default App;
