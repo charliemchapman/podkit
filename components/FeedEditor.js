@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom'; 
 import LabelInput from './LabelInput';
 import Typography from 'material-ui/Typography';
+import RSSHelper from '../helpers/RSSHelper';
 
 class FeedEditor extends React.Component {
     constructor(props){
@@ -20,53 +21,44 @@ class FeedEditor extends React.Component {
         );
     }
 
-    getChannelItemForm(label, channelItem) {
-        const feed = this.props.feed;
-        const channel = feed.rss.channel[0];
-        const onChange = (e)=>{
-            const newValue = e.target.value;
-            const newFeed = { ...feed, rss: { ...feed.rss, channel: [{...feed.rss.channel[0]}]} };
-            newFeed.rss.channel[0][channelItem] = { ...newFeed.rss.channel[0][channelItem] };
-            newFeed.rss.channel[0][channelItem] = [newValue];
+    shared(label, getter, setter){
+        const rssHelper = new RSSHelper(this.props.feed);
+        const value = getter();
+        const onChange = (e) => {
+            const newFeed = setter(e.target.value);
             this.props.updateFeed(newFeed);
-        };
-        return <LabelInput label={label} value={channel[channelItem][0]} onChange={onChange}/>
+        }
+        return <LabelInput label={label} value={value} onChange={onChange}/>;
+    }
+
+    getChannelItemForm(label, channelItem) {
+        const rssHelper = new RSSHelper(this.props.feed);
+        return this.shared(label, ()=>rssHelper.getAttributeValue(channelItem), (v)=>rssHelper.updateAttributeValue(channelItem, v));
     }
 
     getImageUrlForm(){
-        const feed = this.props.feed;
-        const channel = feed.rss.channel[0];
-        const onChange = (e)=>{
-            const newValue = e.target.value;
-            const newFeed = { ...feed, rss: { ...feed.rss, channel: [{...feed.rss.channel[0]}]} };
-            newFeed.rss.channel[0]['itunes:image'] = { ...newFeed.rss.channel[0]['itunes:image'] };
-            newFeed.rss.channel[0]['itunes:image'] = [{$: {href: newValue}}];
-            this.props.updateFeed(newFeed);
-        };
-        return (
-            <LabelInput label="Image Url" value={channel['itunes:image'][0]['$'].href} onChange={onChange}/>
-        )
+        const rssHelper = new RSSHelper(this.props.feed);
+        return this.shared('Image Url', ()=>rssHelper.getImageUrlValue(), (v)=>rssHelper.updateImageUrlValue(v));
     }
 
     getCategoryForm(){
-        const feed = this.props.feed;
-        const channel = feed.rss.channel[0];
-        const onChange = (e)=>{
-            const newValue = e.target.value;
-            const newFeed = { ...feed, rss: { ...feed.rss, channel: [{...feed.rss.channel[0]}]} };
-            newFeed.rss.channel[0]['itunes:category'] = { ...newFeed.rss.channel[0]['itunes:category'] };
-            newFeed.rss.channel[0]['itunes:category'] = [{$: {href: newValue}}];
-            this.props.updateFeed(newFeed);
-        };
+        const rssHelper = new RSSHelper(this.props.feed);
+        return this.shared('Category', ()=>rssHelper.getCategoryValue(), (v)=>rssHelper.updateCategoryValue(v));
+    }
+
+    getExplicitForm(){
+        const channel = this.props.feed.rss.channel[0];
+        const isExplicit = channel['itunes:explicit'][0].match("yes|explicit|true");
+
         return (
-            <LabelInput label="Image Url" value={channel['itunes:category'][0]['$'].text} onChange={onChange}/>
-        )
+            <div>
+                <label><Typography variant="body1">Explicit</Typography></label>
+                <input type="checkbox" checked={isExplicit}/>
+            </div>
+        );
     }
 
     getFeedForm(feed) {
-        const channel = this.props.feed.rss.channel[0];
-        const isExplicit =channel['itunes:explicit'][0].match("yes|explicit|true");
-
         return (
             <div className="feed-settings">
                 { this.getChannelItemForm('Title', 'title') }
@@ -78,10 +70,7 @@ class FeedEditor extends React.Component {
                 { this.getChannelItemForm('Summary', 'itunes:summary') }
                 { this.getImageUrlForm() }
                 { this.getCategoryForm() }
-                <div>
-                    <label><Typography variant="body1">Explicit</Typography></label>
-                    <input type="checkbox" checked={isExplicit}/>
-                </div>
+                { this.getExplicitForm() }
             </div>
         );
     }
