@@ -30,6 +30,7 @@
     "@material-ui/icons": "^1.0.0-beta.42",
     "material-design-icons": "^3.0.1",
     "material-ui": "^1.0.0-beta.41",
+    "npm": "^5.8.0",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
     "typeface-roboto": "0.0.54",
