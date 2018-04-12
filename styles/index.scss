@@ -36,28 +36,41 @@ section {
 }
 
 .feed-settings {
-    label {
-        margin-right: 10px;
-        flex-basis: 130px;
+    .simple-fields {
+        p {
+            margin-right: 10px;
+            flex-basis: 130px;
+        }
+
+        input {
+            flex-grow: 1;
+            background-color: inherit;
+            border: 1px solid #888;
+            padding: 5px 10px;
+        }
+
+        div {
+            width: 100%;
+            display: flex;
+            margin: 10px 0;
+            align-items: center;
+        }
     }
 
-    input {
-        flex-grow: 1;
-        background-color: inherit;
-        border: 1px solid #888;
-        padding: 5px 10px;
-    }
 
-    div {
-        width: 100%;
+    .label-textarea {
         display: flex;
-        margin: 10px 0;
-        align-items: center;
-    }
-}
+        flex-direction: column;
+        align-items: flex-start;
+        margin: 0;
 
-.episodes {
-    
+        textarea {
+            width: 97%;
+            height: 200px;
+            padding: 10px;
+            margin-top: 15px;
+        }
+    }
 }
 
 button {
