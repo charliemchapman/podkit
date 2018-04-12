@@ -38,4 +38,46 @@ export default class RSSHelper {
 
         return newFeed;
     }
+
+    addNewEpisode() {
+        const newEpisode = {
+            'title': ['New Episode'],
+            'dc:creator': [''],
+            'pubDate': [''],
+            'link': [''],
+            'guid': [{           
+                    isPermaLink: ''
+                }],
+            'description': [''], /*CDATA*/
+            'itunes:author': [''],
+            'itunes:subtitle': [''],
+            'itunes:explicit': ['no'],
+            'itunes:duration': [''],
+            'itunes:image': [{           
+                href: ''
+            }],
+            'content:encoded': [''], /*CDATA*/
+            'enclosure': [{           
+                isDefault: '',
+                length: '',
+                medium: '',
+                type: '',
+                url: ''
+            }],
+            'media:content':[{           
+                isDefault: '',
+                length: '',
+                medium: '',
+                type: '',
+                url: ''
+            }],
+
+        }        
+
+        const newFeed = { ...this.feed, rss: { ...this.feed.rss, channel: [{...this.feed.rss.channel[0]}]} };
+        const newItem = [newEpisode, ...newFeed.rss.channel[0].item];
+        newFeed.rss.channel[0].item = newItem;
+        
+        return newFeed;
+    }
 }

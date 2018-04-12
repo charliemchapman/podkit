@@ -34,6 +34,7 @@ class Editor extends React.Component {
                 <section>
                     <Button onClick={this.saveAs} variant="raised" color="primary">SAVE</Button>
                     <Button onClick={onClose} variant="raised" color="secondary">CLOSE</Button>
+                    <Button className="sidebar__addEpisode" onClick={this.props.addNewEpisode}>New Episode</Button>
                 </section>
                 <section>
                     { feedSettingsButton }
