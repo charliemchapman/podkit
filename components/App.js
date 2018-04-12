@@ -5,6 +5,7 @@ import Sidebar from './Sidebar';
 import OpenFeed from './OpenFeed';
 import Button from 'material-ui/Button';
 import { newFeed } from '../helpers/RSSHelper';
+import RSSHelper from '../helpers/RSSHelper';
 
 const { dialog } = require('electron').remote;
 const fs = require("fs");
@@ -26,6 +27,7 @@ class App extends React.Component {
         this.onClose = this.onClose.bind(this);
         this.updateFeed = this.updateFeed.bind(this);
         this.onEpisodeSelectionChange = this.onEpisodeSelectionChange.bind(this);
+        this.addNewEpisode = this.addNewEpisode.bind(this);
     }
 
     updateFeed(updatedFile) {
@@ -64,16 +66,16 @@ class App extends React.Component {
                 console.log("You didn't save the file");
                 return;
             }
-        
+
             // fileName is a string that contains the path and filename created in the save file dialog.  
             fs.writeFile(fileName, fileString, (err) => {
                 if(err){
                     alert("An error ocurred creating the file "+ err.message)
                 }
-                            
+
                 alert("The file has been succesfully saved");
             });
-        }); 
+        });
     }
 
     saveAs() {
@@ -92,6 +94,14 @@ class App extends React.Component {
         this.setState({selectedEpisodeIndex: episodeIndex});
     }
 
+    addNewEpisode() {
+        const rssHelper = new RSSHelper(this.state.feed);
+        var feed = rssHelper.addNewEpisode();
+        this.updateFeed(feed);
+        this.onEpisodeSelectionChange(0);
+    }
+
+
     render() {
         if (!this.state.feed){
             return <OpenFeed openFile={this.openFile} newFile={this.newFile}/>
@@ -101,18 +111,19 @@ class App extends React.Component {
 
         return (
             <div className="app">
-                <Sidebar 
-                    feed={ this.state.feed } 
+                <Sidebar
+                    feed={ this.state.feed }
                     openFile={ this.openFile }
-                    selectedEpisodeIndex={ this.state.selectedEpisodeIndex }
+                    selectedEpisodeIndex={ this.state.selectedEpisodeIndex } 
                     onSelectionChanged={ this.onEpisodeSelectionChange }
                     isDirty={ isDirty }
-                    onClose={ this.onClose }/>
+                    onClose={this.onClose}
+                    addNewEpisode={this.addNewEpisode} />
                 <main>
-                    <Editor 
-                        xmlString={this.state.xmlString} 
-                        feed={this.state.feed} 
-                        updateFeed={this.updateFeed} 
+                    <Editor
+                        xmlString={this.state.xmlString}
+                        feed={this.state.feed}
+                        updateFeed={this.updateFeed}
                         selectedEpisodeIndex={this.state.selectedEpisodeIndex}/>
                 </main>
             </div>
