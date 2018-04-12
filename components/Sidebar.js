@@ -7,7 +7,7 @@ import Typography from 'material-ui/Typography';
 
 class Editor extends React.Component {
     render() {
-        const { selectedEpisodeIndex, onSelectionChanged, isDirty, onClose } = this.props;
+        const { selectedEpisodeIndex, onSelectionChanged, isDirty, onClose, saveAs } = this.props;
 
         let feedSettingsButton;
         let episodeButtons;
@@ -32,7 +32,7 @@ class Editor extends React.Component {
         return (
             <div className="sidebar">
                 <section>
-                    <Button onClick={this.saveAs} variant="raised" color="primary">SAVE</Button>
+                    <Button onClick={saveAs} variant="raised" color="primary">SAVE</Button>
                     <Button onClick={onClose} variant="raised" color="secondary">CLOSE</Button>
                     <Button className="sidebar__addEpisode" onClick={this.props.addNewEpisode}>New Episode</Button>
                 </section>

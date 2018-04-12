@@ -61,16 +61,18 @@ class FeedEditor extends React.Component {
     getFeedForm(feed) {
         return (
             <div className="feed-settings">
-                { this.getChannelItemForm('Title', 'title') }
-                { this.getChannelItemForm('Link', 'link') }
-                { this.getChannelItemForm('lastBuildDate', 'lastBuildDate') }
-                { this.getChannelItemForm('Language', 'language') }
-                { this.getChannelItemForm('Subtitle', 'itunes:subtitle') }
-                { this.getChannelItemForm('Author', 'itunes:author') }
-                { this.getChannelItemForm('Summary', 'itunes:summary') }
-                { this.getImageUrlForm() }
-                { this.getCategoryForm() }
-                { this.getExplicitForm() }
+                <section className="simple-fields">
+                    { this.getChannelItemForm('Title', 'title') }
+                    { this.getChannelItemForm('Link', 'link') }
+                    { this.getChannelItemForm('lastBuildDate', 'lastBuildDate') }
+                    { this.getChannelItemForm('Language', 'language') }
+                    { this.getChannelItemForm('Subtitle', 'itunes:subtitle') }
+                    { this.getChannelItemForm('Author', 'itunes:author') }
+                    { this.getChannelItemForm('Summary', 'itunes:summary') }
+                    { this.getImageUrlForm() }
+                    { this.getCategoryForm() }
+                    { this.getExplicitForm() }
+                </section>
             </div>
         );
     }

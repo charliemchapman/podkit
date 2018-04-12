@@ -5,7 +5,7 @@ import Typography from 'material-ui/Typography';
 export default ({label, value, onChange})=>{
     return (
         <div>
-            <label><Typography variant="body1">{label}</Typography></label>
+            <Typography variant="body1">{label}</Typography>
             <input value={value} onChange={onChange}/>
         </div>
     )
