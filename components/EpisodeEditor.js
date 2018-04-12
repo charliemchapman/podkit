@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import LabelInput from './LabelInput';
 import Typography from 'material-ui/Typography';
+import HtmlEditor from './HtmlEditor';
 
 class EpisodeEditor extends React.Component {
     constructor(props){
@@ -23,8 +24,7 @@ class EpisodeEditor extends React.Component {
     }
 
     getDescriptionForm(){
-        const onChange = (e)=>{
-            const newValue = e.target.value;
+        const onChange = (newValue)=>{
             const newEpisode = {...this.props.episodeXml}
             newEpisode['description'] =  [newValue];
             this.props.updateEpisode(newEpisode);
@@ -34,7 +34,7 @@ class EpisodeEditor extends React.Component {
         return (
             <div className="label-textarea">
                 <Typography variant="body1">Description</Typography>
-                <textarea value={value} onChange={onChange}/>
+                <HtmlEditor value={value} onChange={onChange}/>
             </div>
         )
     }

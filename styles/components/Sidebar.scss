@@ -3,6 +3,7 @@
     overflow-y: scroll;
     height: 100vh;
     border-right: 1px solid #ccc;
+    flex-shrink: 0;
 
     button {
         margin: 0px 10px;

@@ -1,0 +1,42 @@
+@import './quill.bubble.scss';
+@import './quill.core.scss';
+@import './quill.snow.scss';
+
+.html-editor {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.ql-container {
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+    background: #fefcfc;
+}
+
+/* Snow Theme */
+.ql-snow.ql-toolbar {
+    display: block;
+    background: #eaecec;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+}
+
+/* Bubble Theme */
+.ql-bubble .ql-editor {
+    border: 1px solid #ccc;
+    border-radius: 0.5em;
+}
+
+.ql-editor {
+    min-height: 18em;
+}
+
+.themeSwitcher {
+    margin-top: 0.5em;
+    font-size: small;
+}
+
+.ql-snow.ql-toolbar button, .ql-snow .ql-toolbar button {
+    min-width: 20px;
+    width: 20px;
+}
