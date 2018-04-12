@@ -107,6 +107,7 @@ class App extends React.Component {
                     selectedEpisodeIndex={ this.state.selectedEpisodeIndex }
                     onSelectionChanged={ this.onEpisodeSelectionChange }
                     isDirty={ isDirty }
+                    saveAs={ this.saveAs }
                     onClose={ this.onClose }/>
                 <main>
                     <Editor 
