@@ -39,3 +39,43 @@ export default class RSSHelper {
         return newFeed;
     }
 }
+
+export const newFeed = () => {
+    return {
+        rss: {
+            $: {
+                "version": "2.0",
+                "xmlns:admin":"http://webns.net/mvcb/",
+                "xmlns:atom":"http://www.w3.org/2005/Atom/",
+                "xmlns:content":"http://purl.org/rss/1.0/modules/content/",
+                "xmlns:dc":"http://purl.org/dc/elements/1.1/",
+                "xmlns:itunes":"http://www.itunes.com/dtds/podcast-1.0.dtd",
+                "xmlns:rdf":"http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+                "xmlns:sy":"http://purl.org/rss/1.0/modules/syndication/"
+            },
+            channel: [
+                {
+                    "title": [""],
+                    "link": [""],
+                    "description": [""],
+                    "copyright": [""],
+                    "pubDate": [""],
+                    "language": [""],
+                    "itunes:author": [""],
+                    "itunes:block": [""],
+                    "itunes:explicit": [""],
+                    "itunes:keywords": [""],
+                    "itunes:category": [ { $: { text: "" } } ],
+                    "itunes:image": [ { $: { href: "" } } ],
+                    "itunes:owner": [
+                        {
+                            "itunes:email": [""],
+                            "itunes:name": [""]
+                        }
+                    ],
+                    "item": []
+                }
+            ]
+        }
+    }
+}

@@ -4,6 +4,7 @@ import Editor from './Editor';
 import Sidebar from './Sidebar';
 import OpenFeed from './OpenFeed';
 import Button from 'material-ui/Button';
+import { newFeed } from '../helpers/RSSHelper';
 
 const { dialog } = require('electron').remote;
 const fs = require("fs");
@@ -21,6 +22,7 @@ class App extends React.Component {
         this.openFile = this.openFile.bind(this);
         this.saveFile = this.saveFile.bind(this);
         this.saveAs = this.saveAs.bind(this);
+        this.newFile = this.newFile.bind(this);
         this.onClose = this.onClose.bind(this);
         this.updateFeed = this.updateFeed.bind(this);
         this.onEpisodeSelectionChange = this.onEpisodeSelectionChange.bind(this);
@@ -28,6 +30,10 @@ class App extends React.Component {
 
     updateFeed(updatedFile) {
         this.setState({ feed: updatedFile });
+    }
+
+    newFile(){
+        this.setState({ feed: newFeed() });
     }
 
     openFile(){
@@ -45,6 +51,7 @@ class App extends React.Component {
 
                 const setFeed = (xmlString, feed) => this.setState({ xmlString, feed});
                 parser.parseString(data, function (err, result) {
+                    console.log(result);
                     setFeed(data, result);
                 });
             });
@@ -86,8 +93,8 @@ class App extends React.Component {
     }
 
     render() {
-        if (!this.state.xmlString){
-            return <OpenFeed openFile={this.openFile}/>
+        if (!this.state.feed){
+            return <OpenFeed openFile={this.openFile} newFile={this.newFile}/>
         }
 
         const isDirty = !!this.state.feed;
