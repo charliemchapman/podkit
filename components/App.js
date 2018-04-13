@@ -6,6 +6,7 @@ import OpenFeed from './OpenFeed';
 import Button from 'material-ui/Button';
 import { newFeed } from '../helpers/RSSHelper';
 import RSSHelper from '../helpers/RSSHelper';
+import { createJsonFeed, jsonToXmlFeed } from '../helpers/jsonFeedHelper';
 
 const { dialog } = require('electron').remote;
 const fs = require("fs");
@@ -26,12 +27,19 @@ class App extends React.Component {
         this.newFile = this.newFile.bind(this);
         this.onClose = this.onClose.bind(this);
         this.updateFeed = this.updateFeed.bind(this);
+        this.updateJsonFeed = this.updateJsonFeed.bind(this);
         this.onEpisodeSelectionChange = this.onEpisodeSelectionChange.bind(this);
         this.addNewEpisode = this.addNewEpisode.bind(this);
     }
 
     updateFeed(updatedFile) {
-        this.setState({ feed: updatedFile });
+        const jsonFeed = createJsonFeed(updatedFile);
+        this.setState({ feed: updatedFile, jsonFeed });
+    }
+
+    updateJsonFeed(updateJsonFeed){
+        const xmlFeed = jsonToXmlFeed(updatedJsonFeed);
+        this.setState({ feed: xmlFeed, jsonFeed: updateJsonFeed });
     }
 
     newFile(){
@@ -51,7 +59,7 @@ class App extends React.Component {
                     return;
                 }
 
-                const setFeed = (xmlString, feed) => this.setState({ xmlString, feed});
+                const setFeed = (xmlString, feed) => this.setState({ xmlString, feed, jsonFeed: createJsonFeed(feed)});
                 parser.parseString(data, function (err, result) {
                     console.log(result);
                     setFeed(data, result);
@@ -79,15 +87,16 @@ class App extends React.Component {
     }
 
     saveAs() {
-        const { feed } = this.state;
+        const { jsonFeed } = this.state;
+        const xmlFeed = jsonToXmlFeed(jsonFeed);
         var builder = new xml2js.Builder();
-        var xmlString = builder.buildObject(feed);
+        var xmlString = builder.buildObject(xmlFeed);
 
         this.saveFile(xmlString);
     }
 
     onClose() {
-        this.setState({xmlString: null, feed: null, selectedEpisodeIndex: -1});
+        this.setState({xmlString: null, feed: null, jsonFeed: null, selectedEpisodeIndex: -1});
     }
 
     onEpisodeSelectionChange(episodeIndex){
@@ -101,18 +110,17 @@ class App extends React.Component {
         this.onEpisodeSelectionChange(0);
     }
 
-
     render() {
-        if (!this.state.feed){
+        if (!this.state.jsonFeed){
             return <OpenFeed openFile={this.openFile} newFile={this.newFile}/>
         }
 
-        const isDirty = !!this.state.feed;
+        const isDirty = !!this.state.jsonFeed;
 
         return (
             <div className="app">
                 <Sidebar
-                    feed={ this.state.feed }
+                    jsonFeed={ this.state.jsonFeed }
                     openFile={ this.openFile }
                     selectedEpisodeIndex={ this.state.selectedEpisodeIndex } 
                     onSelectionChanged={ this.onEpisodeSelectionChange }

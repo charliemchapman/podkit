@@ -7,23 +7,22 @@ import Typography from 'material-ui/Typography';
 
 class Editor extends React.Component {
     render() {
-        const { selectedEpisodeIndex, onSelectionChanged, isDirty, onClose, saveAs } = this.props;
+        const { selectedEpisodeIndex, onSelectionChanged, isDirty, onClose, saveAs, jsonFeed } = this.props;
 
         let feedSettingsButton;
         let episodeButtons;
 
-        if (this.props.feed){
+        if (jsonFeed){
             const onFeedSettingsClick = ()=> onSelectionChanged(-1);
             const selectedClass = selectedEpisodeIndex === -1 ? 'sidebar__episode--selected' : '';
             feedSettingsButton = <div className={`sidebar__episode ${selectedClass}`} onClick={onFeedSettingsClick}>Feed Settings</div>
 
-            const items = this.props.feed.rss.channel[0].item;
-            episodeButtons = items.map((item, index)=>{
+            episodeButtons = jsonFeed.episodes.map((episode, index)=>{
                 const onEpisodeClick = ()=> onSelectionChanged(index);
                 const selectedClass = selectedEpisodeIndex === index ? 'sidebar__episode--selected' : '';
                 return (
                     <div className={`sidebar__episode ${selectedClass}`} onClick={onEpisodeClick}>
-                        {item.title[0]}
+                        {episode.title}
                     </div>
                 );
             });
