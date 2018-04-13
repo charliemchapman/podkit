@@ -1,4 +1,4 @@
-
+import {getEpisode} from '../helpers/jsonEpisodeHelper';
 
 function getXmlChannelValue(xmlFeed, channelAttr) {
     if (xmlFeed.rss && xmlFeed.rss.channel && xmlFeed.rss.channel[0] && xmlFeed.rss.channel[0][channelAttr]){
@@ -24,9 +24,7 @@ function getXmlChannelImageValue(xmlFeed){
 function getJsonEpisodes(xmlFeed){
     const items = xmlFeed.rss.channel[0].item;
     return items.map(item=> {
-        return {
-            title: item.title[0]
-        };
+        return getEpisode(item)
     });
 }
 
