@@ -22,6 +22,26 @@ class EpisodeEditor extends React.Component {
         return <LabelInput label={label} value={value} onChange={onChange}/>
     }
 
+    getGuidForm(label, channelItem) {
+        const onChange = (e)=>{
+            const newValue = e.target.value;
+            const newEpisode = {...this.props.episodeXml}
+            newEpisode[channelItem] =  [newValue];
+            this.props.updateEpisode(newEpisode);
+        };
+        const valueObject = this.props.episodeXml[channelItem];
+        const value = valueObject 
+                        ? valueObject._ 
+                            ? valueObject._.trim() 
+                            : valueObject[0] 
+                                ? valueObject[0]._
+                                    ?  valueObject[0]._.trim()
+                                    : valueObject[0].trim()
+                                : valueObject.trim() 
+                        : "";
+        return <LabelInput label={label} value={value} onChange={onChange}/>
+    }
+
     getDescriptionForm(){
         const onChange = (e)=>{
             const newValue = e.target.value;
@@ -47,7 +67,7 @@ class EpisodeEditor extends React.Component {
                     {this.getChannelItemForm('dc:creator', 'dc:creator')}
                     {this.getChannelItemForm('pubDate', 'pubDate')}
                     {this.getChannelItemForm('link', 'link')}
-                    {this.getChannelItemForm('guid', 'guid')}
+                    {this.getGuidForm('guid', 'guid')}
                     {this.getChannelItemForm('itunes:author', 'itunes:author')}
                     {this.getChannelItemForm('itunes:subtitle', 'itunes:subtitle')}
                     {this.getChannelItemForm('itunes:explicit', 'itunes:explicit')}
