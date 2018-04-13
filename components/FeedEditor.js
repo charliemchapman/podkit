@@ -48,7 +48,7 @@ class FeedEditor extends React.Component {
 
     getExplicitForm(){
         const channel = this.props.feed.rss.channel[0];
-        const isExplicit = channel['itunes:explicit'][0].match("yes|explicit|true");
+        const isExplicit = channel['itunes:explicit'] ? channel['itunes:explicit'][0].match("yes|explicit|true") : false;
 
         return (
             <div>
