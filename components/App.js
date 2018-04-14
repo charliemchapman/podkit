@@ -6,7 +6,7 @@ import OpenFeed from './OpenFeed';
 import Button from 'material-ui/Button';
 import { newFeed } from '../helpers/RSSHelper';
 import RSSHelper from '../helpers/RSSHelper';
-import { createJsonFeed, jsonToXmlFeed } from '../helpers/jsonFeedHelper';
+import { createJsonFeed, jsonToXmlFeed, addEpisode } from '../helpers/jsonFeedHelper';
 
 const { dialog } = require('electron').remote;
 const fs = require("fs");
@@ -37,13 +37,14 @@ class App extends React.Component {
         this.setState({ feed: updatedFile, jsonFeed });
     }
 
-    updateJsonFeed(updateJsonFeed){
+    updateJsonFeed(updatedJsonFeed){
         const xmlFeed = jsonToXmlFeed(updatedJsonFeed);
-        this.setState({ feed: xmlFeed, jsonFeed: updateJsonFeed });
+        this.setState({ feed: xmlFeed, jsonFeed: updatedJsonFeed });
     }
 
     newFile(){
-        this.setState({ feed: newFeed() });
+        const newXml = newFeed();
+        this.setState({ feed: newXml, jsonFeed: createJsonFeed(newXml) });
     }
 
     openFile(){
@@ -104,9 +105,12 @@ class App extends React.Component {
     }
 
     addNewEpisode() {
-        const rssHelper = new RSSHelper(this.state.feed);
-        var feed = rssHelper.addNewEpisode();
-        this.updateFeed(feed);
+        // const rssHelper = new RSSHelper(this.state.feed);
+        // var feed = rssHelper.addNewEpisode();
+        // this.updateFeed(feed);
+
+        var newFeed = addEpisode(this.state.jsonFeed);
+        this.updateJsonFeed(newFeed);
         this.onEpisodeSelectionChange(0);
     }
 

@@ -1,4 +1,4 @@
-import {getEpisode} from './jsonEpisodeHelper';
+import { xmlEpisodeToJson, episodeJsonToXmlFeed, createEmptyJsonEpisode } from './jsonEpisodeHelper';
 
 function getXmlChannelValue(xmlFeed, channelAttr) {
     if (xmlFeed.rss && xmlFeed.rss.channel && xmlFeed.rss.channel[0] && xmlFeed.rss.channel[0][channelAttr]){
@@ -24,7 +24,7 @@ function getXmlChannelImageValue(xmlFeed){
 function getJsonEpisodes(xmlFeed){
     const items = xmlFeed.rss.channel[0].item;
     return items.map(item=> {
-        return getEpisode(item)
+        return xmlEpisodeToJson(item)
     });
 }
 
@@ -101,9 +101,19 @@ export const jsonToXmlFeed = (jsonFeed) => {
                             "itunes:name": [""]
                         }
                     ],
-                    "item": []
+                    "item": jsonFeed.episodes.map(e=>episodeJsonToXmlFeed(e))
                 }
             ]
         }
+    }
+}
+
+export const addEpisode = (jsonFeed) => {
+    return {
+        ...jsonFeed,
+        episodes: [
+            createEmptyJsonEpisode(),
+            ...jsonFeed.episodes
+        ]
     }
 }

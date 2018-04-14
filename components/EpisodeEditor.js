@@ -23,23 +23,24 @@ class EpisodeEditor extends React.Component {
     }
 
     getGuidForm(label, channelItem) {
-        const onChange = (e)=>{
-            const newValue = e.target.value;
-            const newEpisode = {...this.props.episodeXml}
-            newEpisode[channelItem] =  [newValue];
-            this.props.updateEpisode(newEpisode);
-        };
-        const valueObject = this.props.episodeXml[channelItem];
-        const value = valueObject 
-                        ? valueObject._ 
-                            ? valueObject._.trim() 
-                            : valueObject[0] 
-                                ? valueObject[0]._
-                                    ?  valueObject[0]._.trim()
-                                    : valueObject[0].trim()
-                                : valueObject.trim() 
-                        : "";
-        return <LabelInput label={label} value={value} onChange={onChange}/>
+        // const onChange = (e)=>{
+        //     const newValue = e.target.value;
+        //     const newEpisode = {...this.props.episodeXml}
+        //     newEpisode[channelItem] =  [newValue];
+        //     this.props.updateEpisode(newEpisode);
+        // };
+        // const valueObject = this.props.episodeXml[channelItem];
+        // const value = valueObject 
+        //                 ? valueObject._ 
+        //                     ? valueObject._.trim() 
+        //                     : valueObject[0] 
+        //                         ? valueObject[0]._
+        //                             ?  valueObject[0]._.trim()
+        //                             : valueObject[0].trim()
+        //                         : valueObject.trim() 
+        //                 : "";
+        // return <LabelInput label={label} value={value} onChange={onChange}/>
+        return <LabelInput label={label} value="FIX ME"/>
     }
 
     getDescriptionForm(){
