@@ -6,7 +6,7 @@ import FeedEditor from './FeedEditor';
 class Editor extends React.Component {
     render() {
         if (this.props.selectedEpisodeIndex === -1){
-            return <FeedEditor feed={this.props.feed} updateFeed={this.props.updateFeed}/>
+            return <FeedEditor jsonFeed={this.props.jsonFeed} updateJsonFeed={this.props.updateJsonFeed}/>
         }
 
         var episode = this.props.feed.rss.channel[0].item[this.props.selectedEpisodeIndex];

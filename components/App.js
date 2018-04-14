@@ -105,10 +105,6 @@ class App extends React.Component {
     }
 
     addNewEpisode() {
-        // const rssHelper = new RSSHelper(this.state.feed);
-        // var feed = rssHelper.addNewEpisode();
-        // this.updateFeed(feed);
-
         var newFeed = addEpisode(this.state.jsonFeed);
         this.updateJsonFeed(newFeed);
         this.onEpisodeSelectionChange(0);
@@ -134,9 +130,10 @@ class App extends React.Component {
                     addNewEpisode={this.addNewEpisode} />
                 <main>
                     <Editor
-                        xmlString={this.state.xmlString}
                         feed={this.state.feed}
+                        jsonFeed={this.state.jsonFeed}
                         updateFeed={this.updateFeed}
+                        updateJsonFeed={this.updateJsonFeed}
                         selectedEpisodeIndex={this.state.selectedEpisodeIndex}/>
                 </main>
             </div>
