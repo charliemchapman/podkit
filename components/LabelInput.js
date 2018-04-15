@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Typography from 'material-ui/Typography';
-import { TextField } from 'material-ui';
+import { TextField, Typography } from 'material-ui';
 
 export default ({label, value, onChange})=>{
     return (

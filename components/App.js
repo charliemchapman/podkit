@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import TopBar from './TopBar';
 import Editor from './Editor';
 import Sidebar from './Sidebar';
 import OpenFeed from './OpenFeed';
@@ -111,28 +112,39 @@ class App extends React.Component {
 
     render() {
         if (!this.state.jsonFeed){
-            return <OpenFeed openFile={this.openFile} newFile={this.newFile}/>
+            return (
+                <div>
+                    <TopBar>
+                        <Button color="inherit" onClick={this.openFile}>OPEN</Button>
+                        <Button color="inherit" onClick={this.newFile}>NEW</Button>
+                    </TopBar>
+                    <OpenFeed openFile={this.openFile} newFile={this.newFile}/>
+                </div>
+            );
         }
 
         const isDirty = !!this.state.jsonFeed;
 
         return (
             <div className="app">
-                <Sidebar
-                    jsonFeed={ this.state.jsonFeed }
-                    openFile={ this.openFile }
-                    selectedEpisodeIndex={ this.state.selectedEpisodeIndex } 
-                    onSelectionChanged={ this.onEpisodeSelectionChange }
-                    isDirty={ isDirty }
-                    saveAs={ this.saveAs }
-                    onClose={ this.onClose }
-                    addNewEpisode={this.addNewEpisode} />
-                <main>
-                    <Editor
-                        jsonFeed={this.state.jsonFeed}
-                        updateJsonFeed={this.updateJsonFeed}
-                        selectedEpisodeIndex={this.state.selectedEpisodeIndex}/>
-                </main>
+                <TopBar>
+                    <Button color="inherit" onClick={this.addNewEpisode}>ADD EPISODE</Button>
+                    <Button color="inherit" onClick={this.onClose}>CLOSE</Button>
+                    <Button color="inherit" onClick={this.saveAs}>SAVE</Button>
+                </TopBar>
+                <div className="app-body">
+                    <Sidebar
+                        jsonFeed={ this.state.jsonFeed }
+                        openFile={ this.openFile }
+                        selectedEpisodeIndex={ this.state.selectedEpisodeIndex } 
+                        onSelectionChanged={ this.onEpisodeSelectionChange }/>
+                    <main>
+                        <Editor
+                            jsonFeed={this.state.jsonFeed}
+                            updateJsonFeed={this.updateJsonFeed}
+                            selectedEpisodeIndex={this.state.selectedEpisodeIndex}/>
+                    </main>
+                </div>
             </div>
         );
     }

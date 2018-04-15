@@ -7,22 +7,21 @@ body {
 
 .app {
     display: flex;
+    flex-direction: column;
     font-family: 'Roboto';
 }
 
-header {
-    padding: 10px 0;
-    padding-left: 10px;
+.app-body  {
+    display: flex;
 }
 
 main {
     flex-grow: 1;
-    height: 100vh;
+    height: calc(100vh - 64px);
+    overflow-y: scroll;
 }
 
 .editor {
-    height: 100vh;
-    overflow-y: scroll;
     padding: 0px 15px;
 
     h1 {

@@ -30,3 +30,9 @@
         }
     }
 }
+
+.app-sidebar {
+    width: 240px;
+    overflow-y: scroll;
+    height: calc(100vh - 64px);
+}
