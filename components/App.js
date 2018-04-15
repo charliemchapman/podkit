@@ -62,7 +62,6 @@ class App extends React.Component {
 
                 const setFeed = (xmlString, feed) => this.setState({ xmlString, feed, jsonFeed: createJsonFeed(feed)});
                 parser.parseString(data, function (err, result) {
-                    console.log(result);
                     setFeed(data, result);
                 });
             });
@@ -130,9 +129,7 @@ class App extends React.Component {
                     addNewEpisode={this.addNewEpisode} />
                 <main>
                     <Editor
-                        feed={this.state.feed}
                         jsonFeed={this.state.jsonFeed}
-                        updateFeed={this.updateFeed}
                         updateJsonFeed={this.updateJsonFeed}
                         selectedEpisodeIndex={this.state.selectedEpisodeIndex}/>
                 </main>

@@ -1,6 +1,17 @@
 export const xmlEpisodeToJson = (xmlEpisode) => {
     return {
-        title: xmlEpisode.title[0]
+        title: xmlEpisode.title[0],
+        content: xmlEpisode["content:encoded"][0],
+        description: xmlEpisode.description[0],
+        guid: xmlEpisode.guid[0],
+        author: xmlEpisode["itunes:author"][0],
+        duration: xmlEpisode["itunes:duration"][0],
+        explicit: xmlEpisode["itunes:explicit"][0],
+        image: xmlEpisode["itunes:image"][0].$.href,
+        subtitle: xmlEpisode["itunes:subtitle"][0],
+        summary: xmlEpisode["itunes:summary"][0],
+        link: xmlEpisode.link[0],
+        pubDate: xmlEpisode.pubDate[0]
     };
 }
 

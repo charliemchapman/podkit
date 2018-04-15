@@ -5,20 +5,20 @@ import FeedEditor from './FeedEditor';
 
 class Editor extends React.Component {
     render() {
-        if (this.props.selectedEpisodeIndex === -1){
-            return <FeedEditor jsonFeed={this.props.jsonFeed} updateJsonFeed={this.props.updateJsonFeed}/>
+        const { jsonFeed, updateJsonFeed, selectedEpisodeIndex } = this.props;
+
+        if (selectedEpisodeIndex === -1){
+            return <FeedEditor jsonFeed={jsonFeed} updateJsonFeed={updateJsonFeed}/>
         }
 
-        var episode = this.props.feed.rss.channel[0].item[this.props.selectedEpisodeIndex];
-        const updateEpisode = (updatedEpisode, i) => {
-            const feed = this.props.feed;
-            const newFeed = { ...feed, rss: { ...feed.rss, channel: [{...feed.rss.channel[0]}]} };
-            newFeed.rss.channel[0].item = [ ...newFeed.rss.channel[0].item ];
-            newFeed.rss.channel[0].item[this.props.selectedEpisodeIndex] = updatedEpisode;
-            this.props.updateFeed(newFeed);
+        var episodeJson = jsonFeed.episodes[selectedEpisodeIndex];
+        const updateEpisode = (updatedEpisode) => {
+            const newJsonFeed = { ...jsonFeed, episodes: [...jsonFeed.episodes]};
+            newJsonFeed.episodes[selectedEpisodeIndex] = updatedEpisode;
+            updateJsonFeed(newJsonFeed);
         };
 
-        return <EpisodeEditor episodeXml={episode} feed={this.props.feed} updateEpisode={updateEpisode}/>
+        return <EpisodeEditor episodeJson={episodeJson} jsonFeed={jsonFeed} updateEpisode={updateEpisode} />
     }
 }
 

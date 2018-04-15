@@ -12,45 +12,27 @@ class EpisodeEditor extends React.Component {
     }
 
     getChannelItemForm(label, channelItem) {
+        const { episodeJson, updateEpisode } = this.props;
+
         const onChange = (e)=>{
             const newValue = e.target.value;
-            const newEpisode = {...this.props.episodeXml}
-            newEpisode[channelItem] =  [newValue];
-            this.props.updateEpisode(newEpisode);
+            const newEpisode = {...episodeJson}
+            newEpisode[channelItem] =  newValue;
+            updateEpisode(newEpisode);
         };
-        const value = this.props.episodeXml[channelItem] ? this.props.episodeXml[channelItem][0] : "";
+        const value = episodeJson[channelItem];
         return <LabelInput label={label} value={value} onChange={onChange}/>
     }
 
-    getGuidForm(label, channelItem) {
-        // const onChange = (e)=>{
-        //     const newValue = e.target.value;
-        //     const newEpisode = {...this.props.episodeXml}
-        //     newEpisode[channelItem] =  [newValue];
-        //     this.props.updateEpisode(newEpisode);
-        // };
-        // const valueObject = this.props.episodeXml[channelItem];
-        // const value = valueObject 
-        //                 ? valueObject._ 
-        //                     ? valueObject._.trim() 
-        //                     : valueObject[0] 
-        //                         ? valueObject[0]._
-        //                             ?  valueObject[0]._.trim()
-        //                             : valueObject[0].trim()
-        //                         : valueObject.trim() 
-        //                 : "";
-        // return <LabelInput label={label} value={value} onChange={onChange}/>
-        return <LabelInput label={label} value="FIX ME"/>
-    }
-
     getDescriptionForm(){
+        const { episodeJson, updateEpisode } = this.props;
         const onChange = (e)=>{
             const newValue = e.target.value;
-            const newEpisode = {...this.props.episodeXml}
+            const newEpisode = {...episodeJson}
             newEpisode['description'] =  [newValue];
-            this.props.updateEpisode(newEpisode);
+            updateEpisode(newEpisode);
         };
-        const value = this.props.episodeXml['description'] ? this.props.episodeXml['description'][0] : "";
+        const value = episodeJson['description'];
 
         return (
             <div className="label-textarea">
@@ -68,13 +50,13 @@ class EpisodeEditor extends React.Component {
                     {this.getChannelItemForm('dc:creator', 'dc:creator')}
                     {this.getChannelItemForm('pubDate', 'pubDate')}
                     {this.getChannelItemForm('link', 'link')}
-                    {this.getGuidForm('guid', 'guid')}
-                    {this.getChannelItemForm('itunes:author', 'itunes:author')}
-                    {this.getChannelItemForm('itunes:subtitle', 'itunes:subtitle')}
-                    {this.getChannelItemForm('itunes:explicit', 'itunes:explicit')}
-                    {this.getChannelItemForm('itunes:duration', 'itunes:duration')}
+                    {this.getChannelItemForm('Guid', 'guid')}
+                    {this.getChannelItemForm('itunes:author', 'author')}
+                    {this.getChannelItemForm('itunes:subtitle', 'subtitle')}
+                    {this.getChannelItemForm('itunes:explicit', 'explicit')}
+                    {this.getChannelItemForm('itunes:duration', 'duration')}
                     <LabelInput label="itunes:image"/>
-                    {this.getChannelItemForm('content:encoded', 'content:encoded')}
+                    {this.getChannelItemForm('content:encoded', 'encoded')}
                     <LabelInput label="enclosure"/>
                     <LabelInput label="media:content"/>
                 </section>
@@ -86,7 +68,7 @@ class EpisodeEditor extends React.Component {
     }
 
     render() {
-        const title = this.props.episodeXml.title[0];
+        const title = this.props.episodeJson.title;
 
         return (
             <div className="editor">
