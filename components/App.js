@@ -19,7 +19,8 @@ class App extends React.Component {
         this.state = {
             xmlString: null,
             feed: null,
-            selectedEpisodeIndex: -1
+            selectedEpisodeIndex: -1,
+            isSidebarVisible: true
         }
 
         this.openFile = this.openFile.bind(this);
@@ -31,6 +32,8 @@ class App extends React.Component {
         this.updateJsonFeed = this.updateJsonFeed.bind(this);
         this.onEpisodeSelectionChange = this.onEpisodeSelectionChange.bind(this);
         this.addNewEpisode = this.addNewEpisode.bind(this);
+        this.toggleSidebar = this.toggleSidebar.bind(this);
+        this.getSidebar = this.getSidebar.bind(this);
     }
 
     updateFeed(updatedFile) {
@@ -45,7 +48,7 @@ class App extends React.Component {
 
     newFile(){
         const newXml = newFeed();
-        this.setState({ feed: newXml, jsonFeed: createJsonFeed(newXml) });
+        this.setState({ feed: newXml, jsonFeed: createJsonFeed(newXml), isSidebarVisible: true });
     }
 
     openFile(){
@@ -61,7 +64,7 @@ class App extends React.Component {
                     return;
                 }
 
-                const setFeed = (xmlString, feed) => this.setState({ xmlString, feed, jsonFeed: createJsonFeed(feed)});
+                const setFeed = (xmlString, feed) => this.setState({ xmlString, feed, jsonFeed: createJsonFeed(feed), isSidebarVisible: true});
                 parser.parseString(data, function (err, result) {
                     setFeed(data, result);
                 });
@@ -110,6 +113,21 @@ class App extends React.Component {
         this.onEpisodeSelectionChange(0);
     }
 
+    toggleSidebar() {
+        this.setState({isSidebarVisible: !this.state.isSidebarVisible});
+    }
+
+    getSidebar(){
+        if (!this.state.isSidebarVisible) return;
+
+        return (
+            <Sidebar
+                jsonFeed={ this.state.jsonFeed }
+                openFile={ this.openFile }
+                selectedEpisodeIndex={ this.state.selectedEpisodeIndex } 
+                onSelectionChanged={ this.onEpisodeSelectionChange }/>);
+    }
+
     render() {
         if (!this.state.jsonFeed){
             return (
@@ -127,17 +145,13 @@ class App extends React.Component {
 
         return (
             <div className="app">
-                <TopBar>
+                <TopBar onMenuClicked={this.toggleSidebar}>
                     <Button color="inherit" onClick={this.addNewEpisode}>ADD EPISODE</Button>
                     <Button color="inherit" onClick={this.onClose}>CLOSE</Button>
                     <Button color="inherit" onClick={this.saveAs}>SAVE</Button>
                 </TopBar>
                 <div className="app-body">
-                    <Sidebar
-                        jsonFeed={ this.state.jsonFeed }
-                        openFile={ this.openFile }
-                        selectedEpisodeIndex={ this.state.selectedEpisodeIndex } 
-                        onSelectionChanged={ this.onEpisodeSelectionChange }/>
+                    {this.getSidebar()}
                     <main>
                         <Editor
                             jsonFeed={this.state.jsonFeed}

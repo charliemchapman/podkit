@@ -71,7 +71,7 @@ class EpisodeEditor extends React.Component {
         const title = this.props.episodeJson.title;
 
         return (
-            <div className="editor">
+            <div>
                 <Typography variant="headline">{title}</Typography>
                 { this.getEpisodeForm() }
             </div>

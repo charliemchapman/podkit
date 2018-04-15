@@ -14,7 +14,7 @@ class FeedEditor extends React.Component {
 
     render() {
         return (
-            <div className="editor">
+            <div>
                 <Typography variant="headline">Feed Settings</Typography>
                 { this.getFeedForm() }
             </div>

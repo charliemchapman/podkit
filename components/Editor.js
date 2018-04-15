@@ -2,13 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import EpisodeEditor from './EpisodeEditor';
 import FeedEditor from './FeedEditor';
+import Card, {CardContent} from 'material-ui/Card';
 
 class Editor extends React.Component {
     render() {
         const { jsonFeed, updateJsonFeed, selectedEpisodeIndex } = this.props;
 
         if (selectedEpisodeIndex === -1){
-            return <FeedEditor jsonFeed={jsonFeed} updateJsonFeed={updateJsonFeed}/>
+            return (
+                <div className="editor-card">
+                    <Card><CardContent>
+                        <FeedEditor jsonFeed={jsonFeed} updateJsonFeed={updateJsonFeed}/>
+                    </CardContent></Card>
+                </div>);
         }
 
         var episodeJson = jsonFeed.episodes[selectedEpisodeIndex];
@@ -18,7 +24,13 @@ class Editor extends React.Component {
             updateJsonFeed(newJsonFeed);
         };
 
-        return <EpisodeEditor episodeJson={episodeJson} jsonFeed={jsonFeed} updateEpisode={updateEpisode} />
+        return (
+            <div className="editor-card">
+                <Card><CardContent>
+                    <EpisodeEditor episodeJson={episodeJson} jsonFeed={jsonFeed} updateEpisode={updateEpisode} />
+                </CardContent></Card>
+            </div>
+        );
     }
 }
 
