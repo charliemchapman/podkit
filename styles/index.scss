@@ -36,28 +36,6 @@ section {
 }
 
 .feed-settings {
-    .simple-fields {
-        p {
-            margin-right: 10px;
-            flex-basis: 130px;
-        }
-
-        input {
-            flex-grow: 1;
-            background-color: inherit;
-            border: 1px solid #888;
-            padding: 5px 10px;
-        }
-
-        div {
-            width: 100%;
-            display: flex;
-            margin: 10px 0;
-            align-items: center;
-        }
-    }
-
-
     .label-textarea {
         display: flex;
         flex-direction: column;
