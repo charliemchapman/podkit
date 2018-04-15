@@ -57,30 +57,6 @@ button {
     display: flex;
     align-items: center;
     cursor: pointer;
-
-    .arrow-right {
-        margin-right: 15px
-    }
-    .arrow-down {
-        margin-right: 10px
-    }
-}
-
-.arrow-down {
-    width: 0; 
-    height: 0; 
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 5px solid #EEE;
-}
-
-.arrow-right {
-    width: 0; 
-    height: 0; 
-    border-top: 5px solid transparent;
-    border-bottom: 5px solid transparent;
-
-    border-left: 5px solid #EEE;
 }
 
 @font-face {
