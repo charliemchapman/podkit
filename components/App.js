@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import CssBaseline from 'material-ui/CssBaseline';
 import TopBar from './TopBar';
 import Editor from './Editor';
 import Sidebar from './Sidebar';
@@ -144,6 +145,8 @@ class App extends React.Component {
         const isDirty = !!this.state.jsonFeed;
 
         return (
+            <React.Fragment>
+            <CssBaseline />
             <div className="app">
                 <TopBar onMenuClicked={this.toggleSidebar}>
                     <Button color="inherit" onClick={this.addNewEpisode}>ADD EPISODE</Button>
@@ -160,6 +163,7 @@ class App extends React.Component {
                     </main>
                 </div>
             </div>
+            </React.Fragment>
         );
     }
 }
