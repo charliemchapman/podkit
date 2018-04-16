@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import LabelInput from './LabelInput';
 import Typography from 'material-ui/Typography';
 import RSSHelper from '../helpers/RSSHelper';
+import CategoryPicker from './CategoryPicker';
 
 class FeedEditor extends React.Component {
     constructor(props){
@@ -41,6 +42,17 @@ class FeedEditor extends React.Component {
         return <LabelInput label={label} value={jsonFeed[property]} onChange={onChange}/>;
     }
 
+    getCategoryForm(){
+        const jsonFeed = this.props.jsonFeed;
+        const onChange = (e) => {
+            const newFeed = { ...jsonFeed };
+            newFeed.category = e.target.value;
+            this.props.updateJsonFeed(newFeed);
+        }
+
+        return <CategoryPicker label="Category" value={jsonFeed.category} onChange={onChange}/>
+    }
+
     getFeedForm() {
         return (
             <div className="feed-settings">
@@ -53,7 +65,7 @@ class FeedEditor extends React.Component {
                     { this.getForm('Author', 'itunes:author') }
                     { this.getForm('Summary', 'itunes:summary') }
                     { this.getForm('Image Url', 'image') }
-                    { this.getForm('Category', 'category') }
+                    { this.getCategoryForm('Category', 'category') }
                     { this.getExplicitForm() }
                 </section>
             </div>
