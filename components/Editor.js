@@ -6,7 +6,7 @@ import Card, {CardContent} from 'material-ui/Card';
 
 class Editor extends React.Component {
     render() {
-        const { jsonFeed, updateJsonFeed, selectedEpisodeIndex } = this.props;
+        const { jsonFeed, updateJsonFeed, selectedEpisodeIndex, deleteEpisode } = this.props;
 
         if (selectedEpisodeIndex === -1){
             return (
@@ -24,10 +24,14 @@ class Editor extends React.Component {
             updateJsonFeed(newJsonFeed);
         };
 
+        const removeEpisode = ()=>{
+            deleteEpisode(selectedEpisodeIndex);
+        }
+
         return (
             <div className="editor-card">
                 <Card><CardContent>
-                    <EpisodeEditor episodeJson={episodeJson} jsonFeed={jsonFeed} updateEpisode={updateEpisode} />
+                    <EpisodeEditor episodeJson={episodeJson} jsonFeed={jsonFeed} updateEpisode={updateEpisode} deleteEpisode={removeEpisode} />
                 </CardContent></Card>
             </div>
         );

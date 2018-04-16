@@ -35,6 +35,7 @@ class App extends React.Component {
         this.addNewEpisode = this.addNewEpisode.bind(this);
         this.toggleSidebar = this.toggleSidebar.bind(this);
         this.getSidebar = this.getSidebar.bind(this);
+        this.deleteEpisode = this.deleteEpisode.bind(this);
     }
 
     updateFeed(updatedFile) {
@@ -45,6 +46,17 @@ class App extends React.Component {
     updateJsonFeed(updatedJsonFeed){
         const xmlFeed = jsonToXmlFeed(updatedJsonFeed);
         this.setState({ feed: xmlFeed, jsonFeed: updatedJsonFeed });
+    }
+
+    deleteEpisode(index){
+        const { jsonFeed, selectedEpisodeIndex } = this.state;
+        const episodeTitle = jsonFeed.episodes[index].title;
+        const confirmed = confirm(`Are you sure you want to delete "${episodeTitle}"?`)
+        if (confirmed){
+            const newJsonFeed = {...jsonFeed, episodes: [...jsonFeed.episodes]};
+            newJsonFeed.episodes.splice(selectedEpisodeIndex, 1);
+            this.setState({ jsonFeed: newJsonFeed, selectedEpisodeIndex: -1 })
+        }
     }
 
     newFile(){
@@ -159,7 +171,8 @@ class App extends React.Component {
                         <Editor
                             jsonFeed={this.state.jsonFeed}
                             updateJsonFeed={this.updateJsonFeed}
-                            selectedEpisodeIndex={this.state.selectedEpisodeIndex}/>
+                            selectedEpisodeIndex={this.state.selectedEpisodeIndex}
+                            deleteEpisode={this.deleteEpisode}/>
                     </main>
                 </div>
             </div>

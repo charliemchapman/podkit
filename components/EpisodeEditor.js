@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import LabelInput from './LabelInput';
 import Typography from 'material-ui/Typography';
+import IconButton from 'material-ui/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 class EpisodeEditor extends React.Component {
     constructor(props){
@@ -68,11 +70,16 @@ class EpisodeEditor extends React.Component {
     }
 
     render() {
-        const title = this.props.episodeJson.title;
+        const { episodeJson, deleteEpisode } = this.props;
 
         return (
             <div>
-                <Typography variant="headline">{title}</Typography>
+                <div className="episode-editor__header">
+                    <Typography variant="headline">{episodeJson.title}</Typography>
+                    <IconButton onClick={deleteEpisode} color="inherit" aria-label="Delete">
+                        <DeleteIcon />
+                    </IconButton>
+                </div>
                 { this.getEpisodeForm() }
             </div>
         );

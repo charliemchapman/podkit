@@ -25,6 +25,11 @@ main {
     margin: 10px 20px;
 }
 
+.episode-editor__header {
+    display: flex;
+    justify-content: space-between;
+}
+
 section {
     padding: 5px 10px;
     margin: 10px 0 20px 0;
@@ -44,13 +49,6 @@ section {
             margin-top: 15px;
         }
     }
-}
-
-button {
-    border: none;
-    padding: 8px 13px;
-    margin-right: 10px;
-    min-width: 60px;
 }
 
 .section-header {
