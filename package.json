@@ -7,7 +7,9 @@
     "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config ./config/webpack.config.js",
-    "build:watch": "npm run build -- --watch"
+    "build:watch": "npm run build -- --watch",
+    "build:web": "webpack --config ./config/webpack.web.config.js",
+    "build:web:watch": "npm run build:web -- --watch"
   },
   "author": "",
   "license": "ISC",
