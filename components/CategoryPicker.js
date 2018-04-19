@@ -1,18 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Select } from 'material-ui';
+import { Select, Typography } from 'material-ui';
 import { MenuItem } from 'material-ui/Menu';
-import { categories } from '../helpers/SupportedCategories'
 
-export default ({label, value, onChange})=>{
+export default ({label, value, onChange, categoryOptions})=>{
     const selected = value || "none";
 
-    const categoryMenuItems = categories.map(c=>{
+    const categoryMenuItems = categoryOptions.map(c=>{
         return <MenuItem value={c.value}>{c.name}</MenuItem>
     })
 
     return (
-        <div className="label-input">
+        <div className="select-input">
+            <Typography variant="caption">{label}</Typography>
             <Select
                 value={selected}
                 onChange={onChange}>

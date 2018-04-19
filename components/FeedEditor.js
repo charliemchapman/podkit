@@ -4,6 +4,7 @@ import LabelInput from './LabelInput';
 import Typography from 'material-ui/Typography';
 import RSSHelper from '../helpers/RSSHelper';
 import CategoryPicker from './CategoryPicker';
+import { categories } from '../helpers/SupportedCategories'
 
 class FeedEditor extends React.Component {
     constructor(props){
@@ -25,7 +26,7 @@ class FeedEditor extends React.Component {
     getExplicitForm(){
         //TODO: make work ;)
         return (
-            <div>
+            <div className="select-input">
                 <label><Typography variant="body1">Explicit</Typography></label>
                 <input type="checkbox" checked={false}/>
             </div>
@@ -50,7 +51,23 @@ class FeedEditor extends React.Component {
             this.props.updateJsonFeed(newFeed);
         }
 
-        return <CategoryPicker label="Category" value={jsonFeed.category} onChange={onChange}/>
+        return <CategoryPicker label="Category" value={jsonFeed.category} onChange={onChange} categoryOptions={categories}/>
+    }
+
+    getSubcategoryForm(){
+        const jsonFeed = this.props.jsonFeed;
+        const selectedCategoryMatches = categories.filter(c=>c.value==jsonFeed.category || c.name==jsonFeed.category);
+        const selectedCategory = selectedCategoryMatches.length > 0 ? selectedCategoryMatches[0] : null;
+
+        if (!selectedCategory || !selectedCategory.subcategories) return;
+
+        const onChange = (e) => {
+            const newFeed = { ...jsonFeed };
+            newFeed.subcategory = e.target.value;
+            this.props.updateJsonFeed(newFeed);
+        }
+        
+        return <CategoryPicker label="Subcategory" value={jsonFeed.subcategory} onChange={onChange} categoryOptions={selectedCategory.subcategories}/>
     }
 
     getFeedForm() {
@@ -65,7 +82,8 @@ class FeedEditor extends React.Component {
                     { this.getForm('Author', 'itunes:author') }
                     { this.getForm('Summary', 'itunes:summary') }
                     { this.getForm('Image Url', 'image') }
-                    { this.getCategoryForm('Category', 'category') }
+                    { this.getCategoryForm() }
+                    { this.getSubcategoryForm()}
                     { this.getExplicitForm() }
                 </section>
             </div>
