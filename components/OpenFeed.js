@@ -9,34 +9,45 @@ const styles = theme => ({
     }
   });
 
-export const OpenFeed = ({classes, openFile, newFile, })=>{
+export const OpenFeed = ({classes, openFile, newFile, isElectron})=>{
     const open = (event)=>{
         var input = event.target;
 
         var reader = new FileReader();
         reader.onload = function(){
           var text = reader.result;
-          console.log(text);
           openFile(text);
         };
         reader.readAsText(input.files[0]);
     }
 
+    const getOpenButton = () => {
+        if (isElectron){
+            return <Button onClick={openFile} variant="raised" color="primary">OPEN</Button>;
+        }    
+        else {
+            return (
+                <div>
+                    <input
+                        accept="*"
+                        className={classes.input}
+                        id="raised-button-file"
+                        type="file"
+                        onChange={open}
+                    />
+                    <label htmlFor="raised-button-file">
+                        <Button variant="raised" color="primary" component="span" className={classes.button}>
+                            OPEN
+                        </Button>
+                    </label>
+                </div>
+            );
+        }
+    };
+
     return (
         <div className="open-feed">
-            <Button onClick={openFile} variant="raised" color="primary" disabled>OPEN</Button>
-            <input
-                accept="*"
-                className={classes.input}
-                id="raised-button-file"
-                type="file"
-                onChange={open}
-            />
-            <label htmlFor="raised-button-file">
-                <Button variant="raised" color="primary" component="span" className={classes.button}>
-                    OPEN
-                </Button>
-            </label>
+            { getOpenButton() }
             <Button onClick={newFile} variant="raised" color="secondary">NEW</Button>
         </div>
     );

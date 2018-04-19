@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 require('typeface-roboto');
 require('material-design-icons');
 import styles from './styles/index.scss';
-import App from './components/App';
+import ElectronEntry from './entry/ElectronEntry';
 
 ReactDOM.render(
-    <App/>,
+    <ElectronEntry/>,
     document.getElementById('react-app')
   );

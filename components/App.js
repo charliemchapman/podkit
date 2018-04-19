@@ -10,8 +10,8 @@ import { newFeed } from '../helpers/RSSHelper';
 import RSSHelper from '../helpers/RSSHelper';
 import { createJsonFeed, jsonToXmlFeed, addEpisode } from '../helpers/jsonFeedHelper';
 
-const { dialog } = require('electron').remote;
-const fs = require("fs");
+// const { dialog } = require('electron').remote;
+// const fs = require("fs");
 const xml2js = require('xml2js');
 
 class App extends React.Component {
@@ -25,6 +25,7 @@ class App extends React.Component {
         }
 
         this.openFile = this.openFile.bind(this);
+        this.openNewFile = this.openNewFile.bind(this);
         this.saveFile = this.saveFile.bind(this);
         this.saveAs = this.saveAs.bind(this);
         this.newFile = this.newFile.bind(this);
@@ -64,43 +65,25 @@ class App extends React.Component {
         this.setState({ feed: newXml, jsonFeed: createJsonFeed(newXml), isSidebarVisible: true });
     }
 
-    openFile(){
-        dialog.showOpenDialog((filePaths) => {
-            if(filePaths === undefined || filePaths.length < 1){
-                return;
-            }
+    openNewFile(fileString) {
+        var parser = new xml2js.Parser();
+        const setFeed = (xmlString, feed) => this.setState({ xmlString, feed, jsonFeed: createJsonFeed(feed), isSidebarVisible: true});
+        parser.parseString(fileString, function (err, result) {
+            setFeed(fileString, result);
+        }); 
+    }
 
-            var parser = new xml2js.Parser();
-            fs.readFile(filePaths[0], 'utf-8', (err, data) => {
-                if(err){
-                    alert("An error ocurred reading the file :" + err.message);
-                    return;
-                }
-
-                const setFeed = (xmlString, feed) => this.setState({ xmlString, feed, jsonFeed: createJsonFeed(feed), isSidebarVisible: true});
-                parser.parseString(data, function (err, result) {
-                    setFeed(data, result);
-                });
-            });
-        });
+    openFile(fileString){
+        if (this.props.isElectron){
+            this.props.openFile(this.openNewFile);
+        }
+        else{
+            this.openNewFile(fileString);
+        }
     }
 
     saveFile(fileString) {
-        dialog.showSaveDialog((fileName) => {
-            if (fileName === undefined){
-                console.log("You didn't save the file");
-                return;
-            }
-
-            // fileName is a string that contains the path and filename created in the save file dialog.  
-            fs.writeFile(fileName, fileString, (err) => {
-                if(err){
-                    alert("An error ocurred creating the file "+ err.message)
-                }
-
-                alert("The file has been succesfully saved");
-            });
-        });
+        this.props.saveFile(fileString);
     }
 
     saveAs() {
@@ -146,10 +129,9 @@ class App extends React.Component {
             return (
                 <div>
                     <TopBar>
-                        <Button color="inherit" onClick={this.openFile}>OPEN</Button>
                         <Button color="inherit" onClick={this.newFile}>NEW</Button>
                     </TopBar>
-                    <OpenFeed openFile={this.openFile} newFile={this.newFile}/>
+                    <OpenFeed openFile={this.openFile} newFile={this.newFile} isElectron={this.props.isElectron}/>
                 </div>
             );
         }

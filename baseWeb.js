@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 require('typeface-roboto');
 require('material-design-icons');
 import styles from './styles/index.scss';
-import AppWeb from './components/AppWeb';
+import WebEntry from './entry/WebEntry';
 
 ReactDOM.render(
-    <AppWeb/>,
+    <WebEntry/>,
     document.getElementById('react-app')
   );
