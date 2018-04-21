@@ -1,7 +1,7 @@
 export const xmlEpisodeToJson = (xmlEpisode) => {
     return {
         title: xmlEpisode.title[0],
-        content: xmlEpisode["content:encoded"][0],
+        content: xmlEpisode["content:encoded"] ? xmlEpisode["content:encoded"][0] : "",
         description: xmlEpisode.description[0],
         guid: xmlEpisode.guid[0],
         author: xmlEpisode["itunes:author"] ? xmlEpisode["itunes:author"][0] : "",
