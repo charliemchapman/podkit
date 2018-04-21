@@ -8,7 +8,6 @@ function getXmlChannelValue(xmlFeed, channelAttr) {
 }
 
 function getXmlChannelCategoryValue(xmlFeed){
-    console.log(xmlFeed)
     if (xmlFeed.rss && xmlFeed.rss.channel && xmlFeed.rss.channel[0] && xmlFeed.rss.channel[0]['itunes:category'] && xmlFeed.rss.channel[0]['itunes:category'][0]['$']){
         return xmlFeed.rss.channel[0]['itunes:category'][0]['$'].text
     }
@@ -16,7 +15,6 @@ function getXmlChannelCategoryValue(xmlFeed){
 }
 
 function getXmlChannelSubCategoryValue(xmlFeed){
-    console.log(xmlFeed)
     if (xmlFeed.rss && xmlFeed.rss.channel && xmlFeed.rss.channel[0] && xmlFeed.rss.channel[0]['itunes:category'] && xmlFeed.rss.channel[0]['itunes:category'][0]['$']
         && xmlFeed.rss.channel[0]['itunes:category'][0]['itunes:category'] && xmlFeed.rss.channel[0]['itunes:category'][0]['itunes:category'][0]['$']){
         return xmlFeed.rss.channel[0]['itunes:category'][0]['itunes:category'][0]['$'].text;

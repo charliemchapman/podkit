@@ -3,7 +3,11 @@ import ReactDOM from 'react-dom';
 import LabelInput from './LabelInput';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
+import TextField from 'material-ui/TextField';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { episodeJsonToXmlFeed } from '../helpers/jsonEpisodeHelper';
+
+const xml2js = require('xml2js');
 
 class EpisodeEditor extends React.Component {
     constructor(props){
@@ -39,7 +43,7 @@ class EpisodeEditor extends React.Component {
         return (
             <div className="label-textarea">
                 <Typography variant="body1">Description</Typography>
-                <textarea value={value} onChange={onChange}/>
+                <textarea value={value} onChange={onChange} className="episode-editor__xml"/>
             </div>
         )
     }
@@ -69,6 +73,22 @@ class EpisodeEditor extends React.Component {
         );
     }
 
+    getEpisodeXml() {
+        const { episodeJson } = this.props;
+
+        const xml = episodeJsonToXmlFeed(episodeJson);
+        var builder = new xml2js.Builder();
+        var xmlString = builder.buildObject(xml);
+
+        return (
+            <TextField
+                multiline
+                value={xmlString}
+                className="episode-editor__xml"
+            />
+        )
+    }
+
     render() {
         const { episodeJson, deleteEpisode } = this.props;
 
@@ -81,6 +101,8 @@ class EpisodeEditor extends React.Component {
                     </IconButton>
                 </div>
                 { this.getEpisodeForm() }
+                <Typography variant="display1">XML Preview</Typography>
+                { this.getEpisodeXml() }
             </div>
         );
     }
