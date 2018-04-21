@@ -1,7 +1,7 @@
 export const xmlEpisodeToJson = (xmlEpisode) => {
     return {
         title: xmlEpisode.title[0],
-        content: xmlEpisode["content:encoded"] ? xmlEpisode["content:encoded"][0] : "",
+        contentEncoded: xmlEpisode["content:encoded"] ? xmlEpisode["content:encoded"][0] : "",
         description: xmlEpisode.description[0],
         guid: getGuidFromXmlFeed(xmlEpisode.guid),
         author: xmlEpisode["itunes:author"] ? xmlEpisode["itunes:author"][0] : "",
@@ -18,6 +18,7 @@ export const xmlEpisodeToJson = (xmlEpisode) => {
 export const createEmptyJsonEpisode = () => {
     return {
         title: "New Episode",
+        contentEncoded: "",
         pubDate: "",
         link: "",
         guid: null,
@@ -32,19 +33,16 @@ export const createEmptyJsonEpisode = () => {
 export const episodeJsonToXmlFeed = (episodeJson) => {
     return {
         'title': [episodeJson.title],
-        'dc:creator': [''],
-        'pubDate': [''],
-        'link': [''],
+        'pubDate': [episodeJson.pubDate],
+        'link': [episodeJson.link],
         'guid': [{$: {isPermaLink: 'false'}}],
-        'description': [''], /*CDATA*/
-        'itunes:author': [''],
-        'itunes:subtitle': [''],
+        'description': [episodeJson.description], /*CDATA*/
+        'itunes:author': [episodeJson.author],
+        'itunes:subtitle': [episodeJson.subtitle],
         'itunes:explicit': ['no'],
-        'itunes:duration': [''],
-        'itunes:image': [ { $: { href: "" } } ],
-        'content:encoded': [''], /*CDATA*/
-        'enclosure': [ { $: {isDefault: "", length: "", medium: "", type: "", url: ""}}],
-        'media:content':[ { $: {isDefault: "", length: "", medium: "", type: "", url: ""}}]
+        'itunes:duration': [episodeJson.duration],
+        'itunes:image': [ { $: { href: episodeJson.image } } ],
+        'content:encoded': [episodeJson.contentEncoded], /*CDATA*/
     }
 }
 

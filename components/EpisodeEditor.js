@@ -30,6 +30,29 @@ class EpisodeEditor extends React.Component {
         return <LabelInput label={label} value={value} onChange={onChange}/>
     }
 
+    getTextAreaForm(label, channelItem) {
+        const { episodeJson, updateEpisode } = this.props;
+
+        const onChange = (e)=>{
+            const newValue = e.target.value;
+            const newEpisode = {...episodeJson}
+            newEpisode[channelItem] =  newValue;
+            updateEpisode(newEpisode);
+        };
+        let value = episodeJson[channelItem];
+        value = value ? value.trim() : value;
+        return (
+            <div>
+                <span>{label}</span>
+                <textarea
+                    label={label}
+                    value={value}
+                    onChange={onChange}
+                    className="episode-editor__textarea"
+                />
+            </div>);
+    }
+
     getDescriptionForm(){
         const { episodeJson, updateEpisode } = this.props;
         const onChange = (e)=>{
@@ -43,7 +66,7 @@ class EpisodeEditor extends React.Component {
         return (
             <div className="label-textarea">
                 <Typography variant="body1">Description</Typography>
-                <textarea value={value} onChange={onChange} className="episode-editor__xml"/>
+                <textarea value={value} onChange={onChange} className="episode-editor__textarea"/>
             </div>
         )
     }
@@ -53,18 +76,14 @@ class EpisodeEditor extends React.Component {
             <div className="feed-settings">
                 <section className="simple-fields">
                     {this.getChannelItemForm('Title', 'title')}
-                    {this.getChannelItemForm('dc:creator', 'dc:creator')}
                     {this.getChannelItemForm('pubDate', 'pubDate')}
-                    {this.getChannelItemForm('link', 'link')}
                     {this.getChannelItemForm('Guid', 'guid')}
-                    {this.getChannelItemForm('itunes:author', 'author')}
-                    {this.getChannelItemForm('itunes:subtitle', 'subtitle')}
-                    {this.getChannelItemForm('itunes:explicit', 'explicit')}
+                    {this.getChannelItemForm('link', 'link')}
                     {this.getChannelItemForm('itunes:duration', 'duration')}
-                    <LabelInput label="itunes:image"/>
-                    {this.getChannelItemForm('content:encoded', 'encoded')}
-                    <LabelInput label="enclosure"/>
-                    <LabelInput label="media:content"/>
+                    {this.getChannelItemForm('itunes:explicit', 'explicit')}
+                    {this.getChannelItemForm('itunes:episodeType', 'episode type')}
+                    {this.getTextAreaForm('itunes:subtitle', 'subtitle')}
+                    {this.getTextAreaForm('content:encoded', 'contentEncoded')}
                 </section>
                 <section>
                     { this.getDescriptionForm() }
@@ -81,8 +100,7 @@ class EpisodeEditor extends React.Component {
         var xmlString = builder.buildObject(xml);
 
         return (
-            <TextField
-                multiline
+            <textarea
                 value={xmlString}
                 className="episode-editor__xml"
             />
