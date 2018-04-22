@@ -81,7 +81,7 @@ class EpisodeEditor extends React.Component {
                     {this.getChannelItemForm('link', 'link')}
                     {this.getChannelItemForm('itunes:duration', 'duration')}
                     {this.getChannelItemForm('itunes:explicit', 'explicit')}
-                    {this.getChannelItemForm('itunes:episodeType', 'episode type')}
+                    {this.getChannelItemForm('itunes:episodeType', 'episodeType')}
                     {this.getTextAreaForm('itunes:subtitle', 'subtitle')}
                     {this.getTextAreaForm('content:encoded', 'contentEncoded')}
                 </section>
