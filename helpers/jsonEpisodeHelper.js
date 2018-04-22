@@ -36,8 +36,8 @@ export const episodeJsonToXmlFeed = (episodeJson) => {
     return {
         'title': [episodeJson.title],
         'pubDate': [episodeJson.pubDate],
+        'guid': getXmlGuidFromJsonFeed(episodeJson.guid),
         'link': [episodeJson.link],
-        'guid': [{$: {isPermaLink: 'false'}}],
         'itunes:image': [ { $: { href: episodeJson.image } } ],
         'description': [episodeJson.description], /*CDATA*/
         'content:encoded': [episodeJson.contentEncoded], /*CDATA*/
@@ -56,4 +56,11 @@ function getGuidFromXmlFeed(xmlEpisodeGuid) {
         : "";
 
     return guid.trim()
+}
+
+function getXmlGuidFromJsonFeed(guid) {
+    const guidObj = {$: {isPermaLink: 'false'}};
+    guidObj["_"] = guid;
+
+    return [guidObj];
 }
