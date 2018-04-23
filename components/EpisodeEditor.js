@@ -5,6 +5,7 @@ import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import TextField from 'material-ui/TextField';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Button from 'material-ui/Button';
 import { episodeJsonToXmlFeed } from '../helpers/jsonEpisodeHelper';
 import HtmlEditor from './HtmlEditor';
 
@@ -73,19 +74,20 @@ class EpisodeEditor extends React.Component {
 
     getDescriptionEditor(){
         const { episodeJson, updateEpisode } = this.props;
-        const onClose = (newValue)=>{
+        const onSave = (newValue)=>{
             console.log(newValue);
             const newEpisode = {...episodeJson}
             newEpisode['description'] =  newValue;
             updateEpisode(newEpisode);
             this.setState({isDescriptionEditorOpen: false});
         };
+        const onClose = ()=>this.setState({isDescriptionEditorOpen:false});
         const value = episodeJson['description'];
     
         return (
             <div className="pop-up">
                 <div className="pop-up__content">
-                    <HtmlEditor value={value} onSave={onClose} />
+                    <HtmlEditor value={value} onSave={onSave} onClose={onClose} />
                 </div>
             </div>
         )
@@ -97,7 +99,7 @@ class EpisodeEditor extends React.Component {
         return (
             <div className="label-textarea">
                 <Typography variant="body1">Description</Typography>
-                <button onClick={openDescriptionEditor}>EDIT DESCRIPTION</button>
+                <Button onClick={openDescriptionEditor} variant="raised" color="secondary">EDIT DESCRIPTION</Button>
             </div>
         )
     }

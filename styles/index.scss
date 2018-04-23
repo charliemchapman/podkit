@@ -1,3 +1,4 @@
+@import './components/HtmlEditor.scss';
 @import './components/OpenFeed.scss';
 @import './components/Sidebar.scss';
 @import '../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
@@ -45,10 +46,6 @@ main {
     padding: 10px;
 }
 
-.html-editor {
-    border: 1px solid #FAFAFA;
-}
-
 .pop-up {
     z-index: 100;
     position: absolute;
@@ -88,20 +85,6 @@ section {
             margin-top: 15px;
         }
     }
-}
-
-.html-editor__editWindow {
-    padding: 0 20px;
-}
-
-.html-editor__wrapper {
-    border: 1px solid #EEE;
-}
-
-.html-editor__toolbar {
-    background-color: #FBFBFB;
-    border: none;
-    border-bottom: 1px solid #EEE;
 }
 
 .section-header {

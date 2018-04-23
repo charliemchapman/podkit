@@ -1,0 +1,37 @@
+.html-editor {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #FAFAFA;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.html-editor__content {
+    background-color: #EEE;
+    flex-grow: 1;
+    overflow-y: scroll;
+}
+
+.html-editor__footer {
+    background-color: #DDD;
+    padding: 10px;
+    text-align: right;
+
+    button {
+        margin-left: 10px;
+    }
+}
+
+.html-editor__editWindow {
+    padding: 0 20px;
+}
+
+.html-editor__wrapper {
+    border: 1px solid #EEE;
+}
+
+.html-editor__toolbar {
+    background-color: #FBFBFB;
+    border: none;
+    border-bottom: 1px solid #EEE;
+}
