@@ -30,8 +30,8 @@ export const createEmptyJsonEpisode = () => {
         author: "",
         subtitle: "",
         explicit: false,
-        duration: "",
-        episodeType: ""
+        duration: "00:00:00",
+        episodeType: "full"
     };
 }
 
