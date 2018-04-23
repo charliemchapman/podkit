@@ -78,7 +78,7 @@ class FeedEditor extends React.Component {
                     { this.getForm('Link', 'link') }
                     { this.getForm('lastBuildDate', 'lastBuildDate') }
                     { this.getForm('Language', 'language') }
-                    { this.getForm('Subtitle', 'itunes:subtitle') }
+                    { this.getForm('Subtitle', 'subtitle') }
                     { this.getForm('Author', 'author') }
                     { this.getForm('Summary', 'itunes:summary') }
                     { this.getForm('Image Url', 'image') }
