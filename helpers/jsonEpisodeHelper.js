@@ -1,4 +1,5 @@
 import * as moment from 'moment';
+const uuidv4 = require('uuid/v4');
 
 export const xmlEpisodeToJson = (xmlEpisode) => {
     return {
@@ -24,7 +25,7 @@ export const createEmptyJsonEpisode = () => {
         contentEncoded: "",
         pubDate: moment().utc().format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
         link: "",
-        guid: null,
+        guid: uuidv4(),
         description: "",
         author: "",
         subtitle: "",
