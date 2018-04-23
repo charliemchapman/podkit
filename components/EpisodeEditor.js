@@ -65,8 +65,6 @@ class EpisodeEditor extends React.Component {
             updateEpisode(newEpisode);
         };
         const value = episodeJson.image;
-
-        console.log(value);
         
         return (
             <div className="episode-image">

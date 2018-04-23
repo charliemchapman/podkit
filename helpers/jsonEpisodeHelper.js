@@ -1,3 +1,5 @@
+import * as moment from 'moment';
+
 export const xmlEpisodeToJson = (xmlEpisode) => {
     return {
         title: xmlEpisode.title[0],
@@ -20,7 +22,7 @@ export const createEmptyJsonEpisode = () => {
     return {
         title: "New Episode",
         contentEncoded: "",
-        pubDate: "",
+        pubDate: moment().utc().format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
         link: "",
         guid: null,
         description: "",
