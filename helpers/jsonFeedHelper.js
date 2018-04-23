@@ -44,7 +44,7 @@ export const createJsonFeed = (xmlFeed) => {
         copyright: getXmlChannelValue(xmlFeed, 'copyright'),
         pubDate: getXmlChannelValue(xmlFeed, 'pubDate'),
         language: getXmlChannelValue(xmlFeed, 'language'),
-        author: getXmlChannelValue(xmlFeed, 'author'),
+        author: getXmlChannelValue(xmlFeed, 'itunes:author'),
         block: getXmlChannelValue(xmlFeed, 'block'),
         explicit: false,
         keywords: getXmlChannelValue(xmlFeed, 'keywords'),
