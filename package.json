@@ -30,11 +30,15 @@
   },
   "dependencies": {
     "@material-ui/icons": "^1.0.0-beta.42",
+    "ajv": "^6.4.0",
+    "draft-js": "^0.10.5",
+    "draftjs-to-html": "^0.8.3",
     "material-design-icons": "^3.0.1",
     "material-ui": "^1.0.0-beta.41",
     "npm": "^5.8.0",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
+    "react-draft-wysiwyg": "^1.12.12",
     "typeface-roboto": "0.0.54",
     "xml2js": "^0.4.19"
   }

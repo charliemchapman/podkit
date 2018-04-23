@@ -6,6 +6,7 @@ import IconButton from 'material-ui/IconButton';
 import TextField from 'material-ui/TextField';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { episodeJsonToXmlFeed } from '../helpers/jsonEpisodeHelper';
+import HtmlEditor from './HtmlEditor';
 
 const xml2js = require('xml2js');
 
@@ -13,7 +14,7 @@ class EpisodeEditor extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            
+            isDescriptionEditorOpen: false
         }
     }
 
@@ -53,20 +54,50 @@ class EpisodeEditor extends React.Component {
             </div>);
     }
 
-    getDescriptionForm(){
+    // getDescriptionForm(){
+    //     const { episodeJson, updateEpisode } = this.props;
+    //     const onChange = (newValue)=>{
+    //         const newEpisode = {...episodeJson}
+    //         newEpisode['description'] =  newValue;
+    //         updateEpisode(newEpisode);
+    //     };
+    //     const value = episodeJson['description'];
+
+    //     return (
+    //         <div className="label-textarea">
+    //             <Typography variant="body1">Description</Typography>
+    //             <HtmlEditor value={value} onChange={onChange}/>
+    //         </div>
+    //     )
+    // }
+
+    getDescriptionEditor(){
         const { episodeJson, updateEpisode } = this.props;
-        const onChange = (e)=>{
-            const newValue = e.target.value;
+        const onClose = (newValue)=>{
+            console.log(newValue);
             const newEpisode = {...episodeJson}
-            newEpisode['description'] =  [newValue];
+            newEpisode['description'] =  newValue;
             updateEpisode(newEpisode);
+            this.setState({isDescriptionEditorOpen: false});
         };
         const value = episodeJson['description'];
+    
+        return (
+            <div className="pop-up">
+                <div className="pop-up__content">
+                    <HtmlEditor value={value} onSave={onClose} />
+                </div>
+            </div>
+        )
+    }
+
+    getDescriptionForm(){
+        const openDescriptionEditor = ()=> this.setState({isDescriptionEditorOpen: true});
 
         return (
             <div className="label-textarea">
                 <Typography variant="body1">Description</Typography>
-                <textarea value={value} onChange={onChange} className="episode-editor__textarea"/>
+                <button onClick={openDescriptionEditor}>EDIT DESCRIPTION</button>
             </div>
         )
     }
@@ -97,7 +128,13 @@ class EpisodeEditor extends React.Component {
 
         const xml = episodeJsonToXmlFeed(episodeJson);
         var builder = new xml2js.Builder();
-        var xmlString = builder.buildObject(xml);
+        let xmlString;
+        try {
+            xmlString = builder.buildObject(xml);
+        }
+        catch(err){
+            xmlString = 'error... but really... who cares this is for debugging anyway'
+        }
 
         return (
             <textarea
@@ -109,9 +146,15 @@ class EpisodeEditor extends React.Component {
 
     render() {
         const { episodeJson, deleteEpisode } = this.props;
+        const { isDescriptionEditorOpen } = this.state;
+
+        let descriptionEditorPopup;
+        if (isDescriptionEditorOpen) 
+            descriptionEditorPopup = this.getDescriptionEditor();
 
         return (
             <div>
+                { descriptionEditorPopup }
                 <div className="episode-editor__header">
                     <Typography variant="headline">{episodeJson.title}</Typography>
                     <IconButton onClick={deleteEpisode} color="inherit" aria-label="Delete">
