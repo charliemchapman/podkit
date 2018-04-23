@@ -23,7 +23,7 @@ export default class EpisodeEditor extends React.Component {
 
     getEditorState(value){
         const contentBlock = convertFromHTML(value);
-        if (contentBlock){
+        if (contentBlock && contentBlock.contentBlocks){
             const contentState = ContentState.createFromBlockArray(contentBlock);
             const editorState = EditorState.createWithContent(contentState);
             return editorState;
