@@ -53,7 +53,8 @@ export const createJsonFeed = (xmlFeed) => {
         image: getXmlChannelImageValue(xmlFeed),
         owner: [],
         episodes: getJsonEpisodes(xmlFeed),
-        subtitle: getXmlChannelValue(xmlFeed, 'itunes:subtitle')
+        subtitle: getXmlChannelValue(xmlFeed, 'itunes:subtitle'),
+        summary: getXmlChannelValue(xmlFeed, 'itunes:summary')
     };
 
     return jsonFeed;

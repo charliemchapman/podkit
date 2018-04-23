@@ -80,7 +80,7 @@ class FeedEditor extends React.Component {
                     { this.getForm('Language', 'language') }
                     { this.getForm('Subtitle', 'subtitle') }
                     { this.getForm('Author', 'author') }
-                    { this.getForm('Summary', 'itunes:summary') }
+                    { this.getForm('Summary', 'summary') }
                     { this.getForm('Image Url', 'image') }
                     { this.getCategoryForm() }
                     { this.getSubcategoryForm()}
