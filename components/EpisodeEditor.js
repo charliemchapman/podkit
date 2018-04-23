@@ -55,22 +55,28 @@ class EpisodeEditor extends React.Component {
             </div>);
     }
 
-    // getDescriptionForm(){
-    //     const { episodeJson, updateEpisode } = this.props;
-    //     const onChange = (newValue)=>{
-    //         const newEpisode = {...episodeJson}
-    //         newEpisode['description'] =  newValue;
-    //         updateEpisode(newEpisode);
-    //     };
-    //     const value = episodeJson['description'];
+    getEpisodeImageForm(){
+        const { episodeJson, updateEpisode } = this.props;
 
-    //     return (
-    //         <div className="label-textarea">
-    //             <Typography variant="body1">Description</Typography>
-    //             <HtmlEditor value={value} onChange={onChange}/>
-    //         </div>
-    //     )
-    // }
+        const onChange = (e)=>{
+            const newValue = e.target.value;
+            const newEpisode = {...episodeJson}
+            newEpisode.image =  newValue;
+            updateEpisode(newEpisode);
+        };
+        const value = episodeJson.image;
+
+        console.log(value);
+        
+        return (
+            <div className="episode-image">
+                <div className="episode-image__img">
+                    <img src={value} alt={'episode image'}/>
+                </div>
+                <LabelInput label={'image'} value={value} onChange={onChange}/>
+            </div>
+        )
+    }
 
     getDescriptionEditor(){
         const { episodeJson, updateEpisode } = this.props;
@@ -108,6 +114,7 @@ class EpisodeEditor extends React.Component {
         return (
             <div className="feed-settings">
                 <section className="simple-fields">
+                    { this.getEpisodeImageForm() }
                     {this.getChannelItemForm('Title', 'title')}
                     {this.getChannelItemForm('pubDate', 'pubDate')}
                     {this.getChannelItemForm('Guid', 'guid')}

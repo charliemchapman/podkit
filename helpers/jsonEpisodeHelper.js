@@ -33,12 +33,11 @@ export const createEmptyJsonEpisode = () => {
 }
 
 export const episodeJsonToXmlFeed = (episodeJson) => {
-    return {
+    const xmlFeed = {
         'title': [episodeJson.title],
         'pubDate': [episodeJson.pubDate],
         'guid': getXmlGuidFromJsonFeed(episodeJson.guid),
         'link': [episodeJson.link],
-        //'itunes:image': [ { $: { href: episodeJson.image } } ],
         'description': [episodeJson.description], /*CDATA*/
         'content:encoded': [episodeJson.contentEncoded], /*CDATA*/
         'itunes:duration': [episodeJson.duration],
@@ -46,6 +45,12 @@ export const episodeJsonToXmlFeed = (episodeJson) => {
         'itunes:subtitle': [episodeJson.subtitle],
         'itunes:episodeType': [episodeJson.episodeType]
     }
+
+    if (episodeJson.image){
+        xmlFeed['itunes:image'] = [ { $: { href: episodeJson.image } } ];
+    }
+
+    return xmlFeed;
 }
 
 function getGuidFromXmlFeed(xmlEpisodeGuid) {
