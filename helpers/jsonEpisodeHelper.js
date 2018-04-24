@@ -13,7 +13,7 @@ export const xmlEpisodeToJson = (xmlEpisode) => {
         subtitle: xmlEpisode["itunes:subtitle"] ? xmlEpisode["itunes:subtitle"][0].trim() : "",
         summary: xmlEpisode["itunes:summary"] ? xmlEpisode["itunes:summary"][0].trim() : "",
         episodeType: xmlEpisode["itunes:episodeType"] ? xmlEpisode["itunes:episodeType"][0].trim() : "",
-        link: xmlEpisode.link[0].trim(),
+        link: xmlEpisode.link? xmlEpisode.link[0].trim() : "",
         pubDate: xmlEpisode.pubDate[0].trim(),
         enclosure: getJsonEnclosure(xmlEpisode)
     };
