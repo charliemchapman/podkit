@@ -156,7 +156,7 @@ class EpisodeEditor extends React.Component {
         const { episodeJson } = this.props;
 
         const xml = episodeJsonToXmlFeed(episodeJson);
-        var builder = new xml2js.Builder();
+        var builder = new xml2js.Builder({cdata:true});
         let xmlString;
         try {
             xmlString = builder.buildObject(xml);

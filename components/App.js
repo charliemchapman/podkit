@@ -89,7 +89,7 @@ class App extends React.Component {
     saveAs() {
         const { jsonFeed } = this.state;
         const xmlFeed = jsonToXmlFeed(jsonFeed);
-        var builder = new xml2js.Builder();
+        var builder = new xml2js.Builder({cdata:true});
         var xmlString = builder.buildObject(xmlFeed);
 
         this.saveFile(xmlString);
