@@ -73,6 +73,25 @@ class FeedEditor extends React.Component {
         return <CategoryPicker label="Subcategory" value={jsonFeed.subcategory} onChange={onChange} categoryOptions={selectedCategory.subcategories}/>
     }
 
+    getOwnerForm(){
+        const jsonFeed = this.props.jsonFeed;
+        const onNameChange = (e) => {
+            const newFeed = { ...jsonFeed };
+            newFeed.owner.name = e.target.value;
+            this.props.updateJsonFeed(newFeed);
+        }
+        const onEmailChange = (e) => {
+            const newFeed = { ...jsonFeed };
+            newFeed.owner.email = e.target.value;
+            this.props.updateJsonFeed(newFeed);
+        }
+
+        return <div>
+                <LabelInput label="Owner Name" value={jsonFeed.owner.name} onChange={onNameChange}/>
+                <LabelInput label="Owner Email" value={jsonFeed.owner.email} onChange={onEmailChange}/>
+        </div>;
+    }
+
     getFeedForm() {
         return (
             <div className="feed-settings">
@@ -83,6 +102,7 @@ class FeedEditor extends React.Component {
                     { this.getForm('Language', 'language') }
                     { this.getForm('Subtitle', 'subtitle') }
                     { this.getForm('Author', 'author') }
+                    { this.getOwnerForm() }
                     { this.getForm('Summary', 'summary') }
                     { this.getForm('Image Url', 'image') }
                     { this.getCategoryForm() }

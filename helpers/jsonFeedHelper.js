@@ -29,6 +29,16 @@ function getXmlChannelImageValue(xmlFeed){
     return "";
 }
 
+function getXmlChannelOwnerValue(xmlFeed) {
+    if (xmlFeed.rss && xmlFeed.rss.channel && xmlFeed.rss.channel[0] && xmlFeed.rss.channel[0]['itunes:owner'] && xmlFeed.rss.channel[0]['itunes:owner'][0]) {
+        const xmlOwner = xmlFeed.rss.channel[0]['itunes:owner'][0];
+        return {
+            name : xmlOwner['itunes:name'] && xmlOwner ['itunes:name'][0] ? xmlOwner['itunes:name'][0].trim() : "",
+            email : xmlOwner['itunes:email'] && xmlOwner ['itunes:email'][0] ? xmlOwner['itunes:email'][0].trim() : "",
+        }  
+    }
+};
+
 function getJsonEpisodes(xmlFeed){
     const items = xmlFeed.rss.channel[0].item;
     return items.map(item=> {
@@ -51,7 +61,7 @@ export const createJsonFeed = (xmlFeed) => {
         category: getXmlChannelCategoryValue(xmlFeed),
         subcategory: getXmlChannelSubCategoryValue(xmlFeed),
         image: getXmlChannelImageValue(xmlFeed),
-        owner: [],
+        owner: getXmlChannelOwnerValue(xmlFeed),
         episodes: getJsonEpisodes(xmlFeed),
         subtitle: getXmlChannelValue(xmlFeed, 'itunes:subtitle'),
         summary: getXmlChannelValue(xmlFeed, 'itunes:summary')
