@@ -14,8 +14,21 @@ export const xmlEpisodeToJson = (xmlEpisode) => {
         summary: xmlEpisode["itunes:summary"] ? xmlEpisode["itunes:summary"][0].trim() : "",
         episodeType: xmlEpisode["itunes:episodeType"] ? xmlEpisode["itunes:episodeType"][0].trim() : "",
         link: xmlEpisode.link[0].trim(),
-        pubDate: xmlEpisode.pubDate[0].trim()
+        pubDate: xmlEpisode.pubDate[0].trim(),
+        enclosure: getJsonEnclosure(xmlEpisode)
     };
+}
+
+function getJsonEnclosure(xmlEpisode) {
+    if (xmlEpisode['enclosure'] && xmlEpisode['enclosure'][0]){
+        return {
+            url: xmlEpisode['enclosure'][0].$.url ? xmlEpisode['enclosure'][0].$.url.trim() : '',
+            length: xmlEpisode['enclosure'][0].$.length ? xmlEpisode['enclosure'][0].$.length.trim() : '',
+            type: xmlEpisode['enclosure'][0].$.type ? xmlEpisode['enclosure'][0].$.type.trim() : '',
+        }
+    }
+
+    return { url: '', length: '', type: '' };
 }
 
 export const createEmptyJsonEpisode = () => {
@@ -29,7 +42,12 @@ export const createEmptyJsonEpisode = () => {
         subtitle: "",
         explicit: false,
         duration: "00:00:00",
-        episodeType: "full"
+        episodeType: "full",
+        enclosure: {
+            url: '',
+            length: '',
+            type: 'audio/mpeg'
+        }
     };
 }
 
@@ -45,10 +63,18 @@ export const episodeJsonToXmlFeed = (episodeJson) => {
         'itunes:explicit': ['no'],
         'itunes:subtitle': [episodeJson.subtitle],
         'itunes:episodeType': [episodeJson.episodeType]
-    }
+    };
 
     if (episodeJson.image){
         xmlFeed['itunes:image'] = [ { $: { href: episodeJson.image } } ];
+    }
+
+    if (episodeJson.enclosure) {
+        xmlFeed['enclosure'] = [{$:{ 
+            url: episodeJson.enclosure.url,
+            length: episodeJson.enclosure.length,
+            type: episodeJson.enclosure.type
+        }}];
     }
 
     return xmlFeed;

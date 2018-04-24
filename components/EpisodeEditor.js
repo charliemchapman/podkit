@@ -33,6 +33,19 @@ class EpisodeEditor extends React.Component {
         return <LabelInput label={label} value={value} onChange={onChange}/>
     }
 
+    getEnclosureAttributeForm(label, enclosureAttribute){
+        const { episodeJson, updateEpisode } = this.props;
+
+        const onChange = (e)=>{
+            const newValue = e.target.value;
+            const newEpisode = {...episodeJson}
+            newEpisode.enclosure[enclosureAttribute] =  newValue;
+            updateEpisode(newEpisode);
+        };
+        const value = episodeJson.enclosure[enclosureAttribute];
+        return <LabelInput label={label} value={value} onChange={onChange}/>
+    }
+
     getExplicitForm() {
         const { episodeJson, updateEpisode } = this.props;
 
@@ -120,6 +133,9 @@ class EpisodeEditor extends React.Component {
                 <section className="simple-fields">
                     { this.getEpisodeImageForm() }
                     {this.getChannelItemForm('Title', 'title')}
+                    {this.getEnclosureAttributeForm('Audio Url', 'url')}
+                    {this.getEnclosureAttributeForm('Audio Length', 'length')}
+                    {this.getEnclosureAttributeForm('Audio File Type', 'type')}
                     {this.getChannelItemForm('pubDate', 'pubDate')}
                     {this.getChannelItemForm('Guid', 'guid')}
                     {this.getChannelItemForm('link', 'link')}
