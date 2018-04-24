@@ -1,8 +1,8 @@
 import { xmlEpisodeToJson, episodeJsonToXmlFeed, createEmptyJsonEpisode } from './jsonEpisodeHelper';
 
 function getXmlChannelValue(xmlFeed, channelAttr) {
-    if (xmlFeed.rss && xmlFeed.rss.channel && xmlFeed.rss.channel[0] && xmlFeed.rss.channel[0][channelAttr]){
-        return xmlFeed.rss.channel[0][channelAttr][0]
+    if (xmlFeed.rss && xmlFeed.rss.channel && xmlFeed.rss.channel[0] && xmlFeed.rss.channel[0][channelAttr] && xmlFeed.rss.channel[0][channelAttr][0]){
+        return xmlFeed.rss.channel[0][channelAttr][0].trim()
     }
     return "";
 }
