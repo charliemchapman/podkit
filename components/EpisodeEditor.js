@@ -8,6 +8,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Button from 'material-ui/Button';
 import { episodeJsonToXmlFeed } from '../helpers/jsonEpisodeHelper';
 import HtmlEditor from './HtmlEditor';
+import YesNoPicker from './YesNoPicker';
 
 const xml2js = require('xml2js');
 
@@ -30,6 +31,18 @@ class EpisodeEditor extends React.Component {
         };
         const value = episodeJson[channelItem];
         return <LabelInput label={label} value={value} onChange={onChange}/>
+    }
+
+    getExplicitForm() {
+        const { episodeJson, updateEpisode } = this.props;
+
+        const onChange = (e)=>{
+            const newValue = e.target.value;
+            const newEpisode = {...episodeJson}
+            newEpisode.explicit =  newValue;
+            updateEpisode(newEpisode);
+        };
+        return <YesNoPicker label={'itunes:explicit'} value={episodeJson.explicit} onChange={onChange}/>
     }
 
     getTextAreaForm(label, channelItem) {
@@ -111,7 +124,7 @@ class EpisodeEditor extends React.Component {
                     {this.getChannelItemForm('Guid', 'guid')}
                     {this.getChannelItemForm('link', 'link')}
                     {this.getChannelItemForm('itunes:duration', 'duration')}
-                    {this.getChannelItemForm('itunes:explicit', 'explicit')}
+                    {this.getExplicitForm()}
                     {this.getChannelItemForm('itunes:episodeType', 'episodeType')}
                     {this.getTextAreaForm('itunes:subtitle', 'subtitle')}
                     {this.getTextAreaForm('description', 'description')}

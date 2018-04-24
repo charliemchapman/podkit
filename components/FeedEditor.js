@@ -4,6 +4,7 @@ import LabelInput from './LabelInput';
 import Typography from 'material-ui/Typography';
 import RSSHelper from '../helpers/RSSHelper';
 import CategoryPicker from './CategoryPicker';
+import YesNoPicker from './YesNoPicker';
 import { categories } from '../helpers/SupportedCategories'
 
 class FeedEditor extends React.Component {
@@ -23,14 +24,16 @@ class FeedEditor extends React.Component {
         );
     }
 
-    getExplicitForm(){
-        //TODO: make work ;)
-        return (
-            <div className="select-input">
-                <label><Typography variant="body1">Explicit</Typography></label>
-                <input type="checkbox" checked={false}/>
-            </div>
-        );
+    getExplicitForm() {
+        const { jsonFeed, updateJsonFeed } = this.props;
+
+        const onChange = (e)=>{
+            const newValue = e.target.value;
+            const newFeed = { ...jsonFeed };
+            newFeed.explicit = newValue;
+            updateJsonFeed(newFeed);
+        };
+        return <YesNoPicker label={'itunes:explicit'} value={jsonFeed.explicit} onChange={onChange}/>
     }
 
     getForm(label, property){
