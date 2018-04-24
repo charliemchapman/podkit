@@ -23,7 +23,7 @@ function getXmlChannelSubCategoryValue(xmlFeed){
 }
 
 function getXmlChannelImageValue(xmlFeed){
-    if (xmlFeed.rss && xmlFeed.rss.channel && xmlFeed.rss.channel[0] && xmlFeed.rss.channel[0]['itunes:image'] && xmlFeed.rss.channel[0]['itunes:image']['$']){
+    if (xmlFeed.rss && xmlFeed.rss.channel && xmlFeed.rss.channel[0] && xmlFeed.rss.channel[0]['itunes:image'] && xmlFeed.rss.channel[0]['itunes:image'][0] && xmlFeed.rss.channel[0]['itunes:image'][0]['$']){
         return xmlFeed.rss.channel[0]['itunes:image'][0]['$'].href;
     }
     return "";
