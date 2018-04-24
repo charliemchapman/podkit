@@ -4,7 +4,6 @@ const uuidv4 = require('uuid/v4');
 export const xmlEpisodeToJson = (xmlEpisode) => {
     return {
         title: xmlEpisode.title[0],
-        contentEncoded: xmlEpisode["content:encoded"] ? xmlEpisode["content:encoded"][0] : "",
         description: xmlEpisode.description[0],
         guid: getGuidFromXmlFeed(xmlEpisode.guid),
         author: xmlEpisode["itunes:author"] ? xmlEpisode["itunes:author"][0] : "",
@@ -22,7 +21,6 @@ export const xmlEpisodeToJson = (xmlEpisode) => {
 export const createEmptyJsonEpisode = () => {
     return {
         title: "New Episode",
-        contentEncoded: "",
         pubDate: moment().utc().format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
         link: "",
         guid: uuidv4(),
@@ -42,7 +40,7 @@ export const episodeJsonToXmlFeed = (episodeJson) => {
         'guid': getXmlGuidFromJsonFeed(episodeJson.guid),
         'link': [episodeJson.link],
         'description': [episodeJson.description], /*CDATA*/
-        'content:encoded': [episodeJson.contentEncoded], /*CDATA*/
+        'content:encoded': [episodeJson.description], /*CDATA*/
         'itunes:duration': [episodeJson.duration],
         'itunes:explicit': ['no'],
         'itunes:subtitle': [episodeJson.subtitle],

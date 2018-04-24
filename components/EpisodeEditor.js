@@ -79,7 +79,6 @@ class EpisodeEditor extends React.Component {
     getDescriptionEditor(){
         const { episodeJson, updateEpisode } = this.props;
         const onSave = (newValue)=>{
-            console.log(newValue);
             const newEpisode = {...episodeJson}
             newEpisode['description'] =  newValue;
             updateEpisode(newEpisode);
@@ -100,12 +99,7 @@ class EpisodeEditor extends React.Component {
     getDescriptionForm(){
         const openDescriptionEditor = ()=> this.setState({isDescriptionEditorOpen: true});
 
-        return (
-            <div className="label-textarea">
-                <Typography variant="body1">Description</Typography>
-                <Button onClick={openDescriptionEditor} variant="raised" color="secondary">EDIT DESCRIPTION</Button>
-            </div>
-        )
+        return <Button onClick={openDescriptionEditor} variant="raised" color="secondary">DESCRIPTION EDITOR</Button>;
     }
 
     getEpisodeForm() {
@@ -121,7 +115,7 @@ class EpisodeEditor extends React.Component {
                     {this.getChannelItemForm('itunes:explicit', 'explicit')}
                     {this.getChannelItemForm('itunes:episodeType', 'episodeType')}
                     {this.getTextAreaForm('itunes:subtitle', 'subtitle')}
-                    {this.getTextAreaForm('content:encoded', 'contentEncoded')}
+                    {this.getTextAreaForm('description', 'description')}
                 </section>
                 <section>
                     { this.getDescriptionForm() }
