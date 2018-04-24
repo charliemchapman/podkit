@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { TextField, Typography } from 'material-ui';
 
 export default ({label, value, onChange})=>{
-    value = value ? value.trim() : "";
     return (
         <div className="label-input">
             <TextField

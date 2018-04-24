@@ -42,7 +42,6 @@ class EpisodeEditor extends React.Component {
             updateEpisode(newEpisode);
         };
         let value = episodeJson[channelItem];
-        value = value ? value.trim() : value;
         return (
             <div>
                 <span>{label}</span>
