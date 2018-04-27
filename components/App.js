@@ -8,6 +8,7 @@ import OpenFeed from './OpenFeed';
 import Button from 'material-ui/Button';
 import RSSHelper from '../helpers/RSSHelper';
 import { createJsonFeed, jsonToXmlFeed, addEpisode, createEmptyJsonFeed } from '../helpers/jsonFeedHelper';
+import XmlPreview from './XmlPreview';
 
 // const { dialog } = require('electron').remote;
 // const fs = require("fs");
@@ -20,7 +21,8 @@ class App extends React.Component {
             xmlString: null,
             feed: null,
             selectedEpisodeIndex: -1,
-            isSidebarVisible: true
+            isSidebarVisible: true,
+            isXmlPreviewOpen: false
         }
 
         this.openFile = this.openFile.bind(this);
@@ -36,6 +38,7 @@ class App extends React.Component {
         this.toggleSidebar = this.toggleSidebar.bind(this);
         this.getSidebar = this.getSidebar.bind(this);
         this.deleteEpisode = this.deleteEpisode.bind(this);
+        this.toggleXmlPreview = this.toggleXmlPreview.bind(this);
     }
 
     updateFeed(updatedFile) {
@@ -108,6 +111,10 @@ class App extends React.Component {
         this.onEpisodeSelectionChange(0);
     }
 
+    toggleXmlPreview() {
+        this.setState({isXmlPreviewOpen: !this.state.isXmlPreviewOpen});
+    }
+
     toggleSidebar() {
         this.setState({isSidebarVisible: !this.state.isSidebarVisible});
     }
@@ -135,13 +142,14 @@ class App extends React.Component {
             );
         }
 
-        const isDirty = !!this.state.jsonFeed;
+        const xmlPreview = this.state.isXmlPreviewOpen ? <XmlPreview jsonFeed={this.state.jsonFeed}/> : '';
 
         return (
             <React.Fragment>
             <CssBaseline />
             <div className="app">
                 <TopBar onMenuClicked={this.toggleSidebar}>
+                    <Button color="inherit" onClick={this.toggleXmlPreview}>XML Preview</Button>
                     <Button color="inherit" onClick={this.addNewEpisode}>ADD EPISODE</Button>
                     <Button color="inherit" onClick={this.onClose}>CLOSE</Button>
                     <Button color="inherit" onClick={this.saveAs}>SAVE</Button>
@@ -149,6 +157,7 @@ class App extends React.Component {
                 <div className="app-body">
                     {this.getSidebar()}
                     <main>
+                        {xmlPreview}
                         <Editor
                             jsonFeed={this.state.jsonFeed}
                             updateJsonFeed={this.updateJsonFeed}
