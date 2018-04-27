@@ -36,6 +36,26 @@ class FeedEditor extends React.Component {
         return <YesNoPicker label={'itunes:explicit'} value={jsonFeed.explicit} onChange={onChange}/>
     }
 
+    getImageForm(){
+        const { jsonFeed, updateJsonFeed } = this.props;
+
+        const onChange = (e) => {
+            const newFeed = { ...jsonFeed };
+            newFeed[property] = e.target.value;
+            updateJsonFeed(newFeed);
+        }
+        const value = jsonFeed.image;
+        
+        return (
+            <div className="episode-image">
+                <div className="episode-image__img">
+                    <img src={value} alt={'episode image'}/>
+                </div>
+                <LabelInput label={'image'} value={value} onChange={onChange}/>
+            </div>
+        )
+    }
+
     getForm(label, property){
         const jsonFeed = this.props.jsonFeed;
         const onChange = (e) => {
@@ -106,6 +126,7 @@ class FeedEditor extends React.Component {
         return (
             <div className="feed-settings">
                 <section className="simple-fields">
+                    { this.getImageForm() }
                     { this.getForm('Title', 'title') }
                     { this.getForm('Link', 'link') }
                     { this.getForm('lastBuildDate', 'lastBuildDate') }
@@ -114,7 +135,6 @@ class FeedEditor extends React.Component {
                     { this.getForm('Author', 'author') }
                     { this.getOwnerForm() }
                     { this.getForm('Summary', 'summary') }
-                    { this.getForm('Image Url', 'image') }
                     { this.getCategoryForm() }
                     { this.getSubcategoryForm()}
                     { this.getExplicitForm() }
