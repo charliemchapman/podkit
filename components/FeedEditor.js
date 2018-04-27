@@ -6,6 +6,7 @@ import RSSHelper from '../helpers/RSSHelper';
 import CategoryPicker from './CategoryPicker';
 import YesNoPicker from './YesNoPicker';
 import { categories } from '../helpers/SupportedCategories'
+import CategoriesEditor from './CategoriesEditor';
 
 class FeedEditor extends React.Component {
     constructor(props){
@@ -135,8 +136,7 @@ class FeedEditor extends React.Component {
                     { this.getForm('Author', 'author') }
                     { this.getOwnerForm() }
                     { this.getForm('Summary', 'summary') }
-                    { this.getCategoryForm() }
-                    { this.getSubcategoryForm()}
+                    <CategoriesEditor jsonFeed={this.props.jsonFeed} updateJsonFeed={this.props.updateJsonFeed}/>
                     { this.getExplicitForm() }
                 </section>
             </div>
