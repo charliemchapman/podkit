@@ -6,9 +6,8 @@ import Editor from './Editor';
 import Sidebar from './Sidebar';
 import OpenFeed from './OpenFeed';
 import Button from 'material-ui/Button';
-import { newFeed } from '../helpers/RSSHelper';
 import RSSHelper from '../helpers/RSSHelper';
-import { createJsonFeed, jsonToXmlFeed, addEpisode } from '../helpers/jsonFeedHelper';
+import { createJsonFeed, jsonToXmlFeed, addEpisode, createEmptyJsonFeed } from '../helpers/jsonFeedHelper';
 
 // const { dialog } = require('electron').remote;
 // const fs = require("fs");
@@ -61,8 +60,8 @@ class App extends React.Component {
     }
 
     newFile(){
-        const newXml = newFeed();
-        this.setState({ feed: newXml, jsonFeed: createJsonFeed(newXml), isSidebarVisible: true });
+        const newJson = createEmptyJsonFeed();
+        this.setState({ feed: jsonToXmlFeed(newJson), jsonFeed: newJson, isSidebarVisible: true });
     }
 
     openNewFile(fileString) {

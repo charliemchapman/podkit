@@ -1,3 +1,4 @@
+import * as moment from 'moment';
 import { xmlEpisodeToJson, episodeJsonToXmlFeed, createEmptyJsonEpisode } from './jsonEpisodeHelper';
 
 function getXmlChannelValue(xmlFeed, channelAttr) {
@@ -52,7 +53,7 @@ export const createJsonFeed = (xmlFeed) => {
         link: getXmlChannelValue(xmlFeed, 'link'),
         description: getXmlChannelValue(xmlFeed, 'description'),
         copyright: getXmlChannelValue(xmlFeed, 'copyright'),
-        pubDate: getXmlChannelValue(xmlFeed, 'pubDate'),
+        lastBuildDate: getXmlChannelValue(xmlFeed, 'lastBuildDate'),
         language: getXmlChannelValue(xmlFeed, 'language'),
         author: getXmlChannelValue(xmlFeed, 'itunes:author'),
         block: getXmlChannelValue(xmlFeed, 'block'),
@@ -76,10 +77,10 @@ export const createEmptyJsonFeed = () => {
         link: "",
         description: "",
         copyright: "",
-        pubDate: "",
-        language: "",
+        lastBuildDate: moment().utc().format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
+        language: "en-US",
         author: "",
-        block: "",
+        block: "No",
         explicit: "No",
         keywords: "",
         category: "",
@@ -87,6 +88,8 @@ export const createEmptyJsonFeed = () => {
         owner: [],
         episodes: []
     };
+
+    return jsonFeed;
 }
 
 export const jsonToXmlFeed = (jsonFeed) => {
@@ -108,17 +111,17 @@ export const jsonToXmlFeed = (jsonFeed) => {
                     "link": [jsonFeed.link],
                     "description": [jsonFeed.description],
                     "copyright": [jsonFeed.copyright],
-                    "pubDate": [jsonFeed.pubDate],
+                    "lastBuildDate": [jsonFeed.lastBuildDate],
                     "language": [jsonFeed.language],
                     "itunes:author": [jsonFeed.author],
-                    "itunes:block": [jsonFeed.block],
+                    "itunes:block": [ jsonFeed.block || "No" ],
                     "itunes:explicit": [jsonFeed.explicit],
                     "itunes:keywords": [jsonFeed.keywords],
                     "itunes:image": [ { $: { href: jsonFeed.image } } ],
                     "itunes:owner": [
                         {
-                            "itunes:email": [""],
-                            "itunes:name": [""]
+                            "itunes:email": [jsonFeed.owner.email],
+                            "itunes:name": [jsonFeed.owner.name]
                         }
                     ],
                     "item": jsonFeed.episodes.map(e=>episodeJsonToXmlFeed(e))

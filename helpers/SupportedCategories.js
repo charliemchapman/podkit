@@ -9,7 +9,7 @@ export const categories = [
             },
             {
                 name: 'Fashion & Beauty',
-                value: 'Fashion &amp; Beauty'
+                value: 'Fashion & Beauty'
             },
             {
                 name: 'Food',
@@ -47,7 +47,7 @@ export const categories = [
             },
             {
                 name: 'Management & Marketing',
-                value: 'Management &amp; Marketing'
+                value: 'Management & Marketing'
             },
             {
                 name: 'Shopping',
@@ -87,7 +87,7 @@ export const categories = [
     },
     {
         name: 'Games & Hobbies',
-        value: 'Games &amp; Hobbies',
+        value: 'Games & Hobbies',
         subcategories: [
             {
                 name: 'Automotive',
@@ -113,7 +113,7 @@ export const categories = [
     },
     {
         name: 'Government & Organizations',
-        value: 'Government &amp; Organizations',
+        value: 'Government & Organizations',
         subcategories: [
             {
                 name: 'Local',
@@ -143,7 +143,7 @@ export const categories = [
             },
             {
                 name: 'Fitness & Nutrition',
-                value: 'Fitness &amp; Nutrition'
+                value: 'Fitness & Nutrition'
             },
             {
                 name: 'Self-Help',
@@ -157,7 +157,7 @@ export const categories = [
     },
     {
         name: 'Kids & Family',
-        value: 'Kids &amp; Family'
+        value: 'Kids & Family'
     },
     {
         name: 'Music',
@@ -165,11 +165,11 @@ export const categories = [
     },
     {
         name: 'News & Politics',
-        value: 'News &amp; Politics'
+        value: 'News & Politics'
     },
     {
         name: 'Religion & Spirituality',
-        value: 'Religion &amp; Spirituality',
+        value: 'Religion & Spirituality',
         subcategories: [
             {
                 name: 'Buddhism',
@@ -203,7 +203,7 @@ export const categories = [
     },
     {
         name: 'Science & Medicine',
-        value: 'Science &amp; Medicine',
+        value: 'Science & Medicine',
         subcategories: [
             {
                 name: 'Medicine',
@@ -221,7 +221,7 @@ export const categories = [
     },
     {
         name: 'Society & Culture',
-        value: 'Society &amp; Culture',
+        value: 'Society & Culture',
         subcategories: [
             {
                 name: 'History',
@@ -237,13 +237,13 @@ export const categories = [
             },
             {
                 name: 'Places & Travel',
-                value: 'Places &amp; Travel'
+                value: 'Places & Travel'
             }
         ]
     },
     {
         name: 'Sports & Recreation',
-        value: 'Sports &amp; Recreation',
+        value: 'Sports & Recreation',
         subcategories: [
             {
                 name: 'Amateur',
@@ -251,7 +251,7 @@ export const categories = [
             },
             {
                 name: 'College & High School',
-                value: 'College &amp; High School'
+                value: 'College & High School'
             },
             {
                 name: 'Outdoor',
@@ -287,6 +287,6 @@ export const categories = [
     },
     {
         name: 'TV & Film',
-        value: 'TV &amp; Film'
+        value: 'TV & Film'
     }
 ];
