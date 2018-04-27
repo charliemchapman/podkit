@@ -8,11 +8,28 @@ function getXmlChannelValue(xmlFeed, channelAttr) {
     return "";
 }
 
-function getXmlChannelCategoryValue(xmlFeed){
-    if (xmlFeed.rss && xmlFeed.rss.channel && xmlFeed.rss.channel[0] && xmlFeed.rss.channel[0]['itunes:category'] && xmlFeed.rss.channel[0]['itunes:category'][0]['$']){
-        return xmlFeed.rss.channel[0]['itunes:category'][0]['$'].text
+function getXmlChannelCategoriesValue(xmlFeed){
+    if (xmlFeed.rss && xmlFeed.rss.channel && xmlFeed.rss.channel[0] && xmlFeed.rss.channel[0]['itunes:category'] && xmlFeed.rss.channel[0]['itunes:category'].length > 0){
+        return xmlFeed.rss.channel[0]['itunes:category'].map(category=>{
+            return getXmlChannelCategoryValue(category);
+        });
     }
-    return "";
+}
+
+function getXmlChannelCategoryValue(xmlCategory){
+    if (xmlCategory['$']){
+        const jsonCategory = {
+            categoryName: xmlCategory['$'].text
+        };
+
+        if (xmlCategory['itunes:category'] && xmlCategory['itunes:category'].length > 0){
+            jsonCategory.subcategories = xmlCategory['itunes:category'].map(xmlSubcategory=>{
+                return getXmlChannelCategoryValue(xmlSubcategory);
+            });
+        }
+        return jsonCategory;
+    }
+    return {categoryName: ""};
 }
 
 function getXmlChannelSubCategoryValue(xmlFeed){
@@ -59,8 +76,7 @@ export const createJsonFeed = (xmlFeed) => {
         block: getXmlChannelValue(xmlFeed, 'block'),
         explicit: getXmlChannelValue(xmlFeed, 'itunes:explicit'),
         keywords: getXmlChannelValue(xmlFeed, 'keywords'),
-        category: getXmlChannelCategoryValue(xmlFeed),
-        subcategory: getXmlChannelSubCategoryValue(xmlFeed),
+        categories: getXmlChannelCategoriesValue(xmlFeed),
         image: getXmlChannelImageValue(xmlFeed),
         owner: getXmlChannelOwnerValue(xmlFeed),
         episodes: getJsonEpisodes(xmlFeed),
@@ -83,7 +99,7 @@ export const createEmptyJsonFeed = () => {
         block: "No",
         explicit: "No",
         keywords: "",
-        category: "",
+        categories: [{categoryName: ""}],
         image: "",
         owner: [],
         episodes: []
@@ -123,21 +139,32 @@ export const jsonToXmlFeed = (jsonFeed) => {
                             "itunes:email": [jsonFeed.owner.email],
                             "itunes:name": [jsonFeed.owner.name]
                         }
-                    ],
-                    "item": jsonFeed.episodes.map(e=>episodeJsonToXmlFeed(e))
+                    ]
                 }
             ]
         }
     }
 
-    if (jsonFeed.category){
-        newXml.rss.channel[0]["itunes:category"] = [ { $: { text: jsonFeed.category } } ];
-        if (jsonFeed.subcategory){
-            newXml.rss.channel[0]["itunes:category"][0]["itunes:category"] = [ { $: { text: jsonFeed.subcategory } } ];
-        }
+    if (jsonFeed.categories.length > 0){
+        newXml.rss.channel[0]["itunes:category"] = getXmlCategoriesFromJson(jsonFeed.categories);
     }
 
+    // Always add episodes at the end so they're at the bottom of the xml file
+    newXml.rss.channel[0].item = jsonFeed.episodes.map(e=>episodeJsonToXmlFeed(e));
+
     return newXml;
+}
+
+function getXmlCategoriesFromJson(jsonCategories) {
+    const xmlCategories = jsonCategories.map(jsonCategory=>{
+        const xmlCategory = { $: { text: jsonCategory.categoryName } };
+        if (jsonCategory.subcategories) {
+            xmlCategory['itunes:category'] = getXmlCategoriesFromJson(jsonCategory.subcategories);
+        }
+        return xmlCategory;
+    });
+
+    return xmlCategories;
 }
 
 export const addEpisode = (jsonFeed) => {
