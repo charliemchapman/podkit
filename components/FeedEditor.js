@@ -46,6 +46,16 @@ class FeedEditor extends React.Component {
         return <LabelInput label={label} value={jsonFeed[property]} onChange={onChange}/>;
     }
 
+    getMultilineForm(label, property){
+        const jsonFeed = this.props.jsonFeed;
+        const onChange = (e) => {
+            const newFeed = { ...jsonFeed };
+            newFeed[property] = e.target.value;
+            this.props.updateJsonFeed(newFeed);
+        }
+        return <LabelInput label={label} value={jsonFeed[property]} onChange={onChange} multiline={true}/>;
+    }
+
     getCategoryForm(){
         const jsonFeed = this.props.jsonFeed;
         const onChange = (e) => {
@@ -100,7 +110,7 @@ class FeedEditor extends React.Component {
                     { this.getForm('Link', 'link') }
                     { this.getForm('lastBuildDate', 'lastBuildDate') }
                     { this.getForm('Language', 'language') }
-                    { this.getForm('Subtitle', 'subtitle') }
+                    { this.getMultilineForm('Subtitle', 'subtitle') }
                     { this.getForm('Author', 'author') }
                     { this.getOwnerForm() }
                     { this.getForm('Summary', 'summary') }

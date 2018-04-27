@@ -68,16 +68,7 @@ class EpisodeEditor extends React.Component {
             updateEpisode(newEpisode);
         };
         let value = episodeJson[channelItem];
-        return (
-            <div>
-                <span>{label}</span>
-                <textarea
-                    label={label}
-                    value={value}
-                    onChange={onChange}
-                    className="episode-editor__textarea"
-                />
-            </div>);
+        return <LabelInput label={label} value={value} onChange={onChange} multiline={true}/>
     }
 
     getEpisodeImageForm(){
