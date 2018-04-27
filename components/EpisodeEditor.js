@@ -1,14 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import LabelInput from './LabelInput';
-import Typography from 'material-ui/Typography';
-import IconButton from 'material-ui/IconButton';
-import TextField from 'material-ui/TextField';
 import DeleteIcon from '@material-ui/icons/Delete';
-import Button from 'material-ui/Button';
 import { episodeJsonToXmlFeed } from '../helpers/jsonEpisodeHelper';
 import HtmlEditor from './HtmlEditor';
 import YesNoPicker from './YesNoPicker';
+import { Select, MenuItem, Typography, TextField, Button, IconButton } from 'material-ui';
 
 const xml2js = require('xml2js');
 
@@ -38,12 +35,39 @@ class EpisodeEditor extends React.Component {
 
         const onChange = (e)=>{
             const newValue = e.target.value;
-            const newEpisode = {...episodeJson}
+            const newEpisode = {...episodeJson, enclosure: {...episodeJson.enclosure}}
             newEpisode.enclosure[enclosureAttribute] =  newValue;
             updateEpisode(newEpisode);
         };
         const value = episodeJson.enclosure[enclosureAttribute];
         return <LabelInput label={label} value={value} onChange={onChange}/>
+    }
+
+    getEnclosureTypeForm(){
+        const { episodeJson, updateEpisode } = this.props;
+
+        const onChange = (e)=>{
+            const newValue = e.target.value;
+            const newEpisode = {...episodeJson, enclosure: {...episodeJson.enclosure}}
+            newEpisode.enclosure.type =  newValue;
+            updateEpisode(newEpisode);
+        };
+        const selected = episodeJson.enclosure.type ? episodeJson.enclosure.type.toLowerCase() : 'audio/mpeg';
+        
+        return (
+            <div className="select-input">
+                <Typography variant="caption">Audio File Type</Typography>
+                <Select
+                    value={selected}
+                    onChange={onChange}>
+                    <MenuItem value="audio/x-m4a">audio/x-m4a</MenuItem>
+                    <MenuItem value="audio/mpeg">audio/mpeg</MenuItem>
+                    <MenuItem value="video/quicktime">video/quicktime</MenuItem>
+                    <MenuItem value="video/mp4">video/mp4</MenuItem>
+                    <MenuItem value="video/x-m4v">video/x-m4v</MenuItem>
+                    <MenuItem value="application/pdf">application/pdf</MenuItem>
+                </Select>
+            </div>);
     }
 
     getExplicitForm() {
@@ -126,7 +150,7 @@ class EpisodeEditor extends React.Component {
                     {this.getChannelItemForm('Title', 'title')}
                     {this.getEnclosureAttributeForm('Audio Url', 'url')}
                     {this.getEnclosureAttributeForm('Audio Length', 'length')}
-                    {this.getEnclosureAttributeForm('Audio File Type', 'type')}
+                    {this.getEnclosureTypeForm()}
                     {this.getChannelItemForm('pubDate', 'pubDate')}
                     {this.getChannelItemForm('Guid', 'guid')}
                     {this.getChannelItemForm('link', 'link')}
