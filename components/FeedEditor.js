@@ -41,7 +41,7 @@ class FeedEditor extends React.Component {
 
         const onChange = (e) => {
             const newFeed = { ...jsonFeed };
-            newFeed[property] = e.target.value;
+            newFeed.image = e.target.value;
             updateJsonFeed(newFeed);
         }
         const value = jsonFeed.image;
