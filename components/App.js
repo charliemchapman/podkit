@@ -9,6 +9,7 @@ import Button from 'material-ui/Button';
 import RSSHelper from '../helpers/RSSHelper';
 import { createJsonFeed, jsonToXmlFeed, addEpisode, createEmptyJsonFeed } from '../helpers/jsonFeedHelper';
 import XmlPreview from './XmlPreview';
+import * as moment from 'moment';
 
 // const { dialog } = require('electron').remote;
 // const fs = require("fs");
@@ -90,7 +91,9 @@ class App extends React.Component {
 
     saveAs() {
         const { jsonFeed } = this.state;
-        const xmlFeed = jsonToXmlFeed(jsonFeed);
+        var newJsonFeed = { ...jsonFeed };
+        newJsonFeed.lastBuildDate = moment().utc().format('ddd, DD MMM YYYY HH:mm:ss ZZ');
+        const xmlFeed = jsonToXmlFeed(newJsonFeed);
         var builder = new xml2js.Builder({cdata:true});
         var xmlString = builder.buildObject(xmlFeed);
 

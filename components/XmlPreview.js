@@ -1,10 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { jsonToXmlFeed } from '../helpers/jsonFeedHelper';
+import * as moment from 'moment';
 const xml2js = require('xml2js');
 
 export default ({jsonFeed})=>{
-    const xml = jsonToXmlFeed(jsonFeed);
+    const newJsonFeed = {...jsonFeed};
+    newJsonFeed.lastBuildDate = moment().utc().format('ddd, DD MMM YYYY HH:mm:ss ZZ');
+    const xml = jsonToXmlFeed(newJsonFeed);
     var builder = new xml2js.Builder({cdata:true});
     let xmlString;
     try {
