@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Select, Typography } from 'material-ui';
+import { Select, Typography, Button } from 'material-ui';
 import { MenuItem } from 'material-ui/Menu';
 
-export default ({label, value, onChange, categoryOptions})=>{
+export default ({label, value, onChange, onRemove, categoryOptions})=>{
     const selected = value || "none";
 
     const categoryMenuItems = categoryOptions.map(c=>{
@@ -11,14 +11,17 @@ export default ({label, value, onChange, categoryOptions})=>{
     })
 
     return (
-        <div className="select-input">
-            <Typography variant="caption">{label}</Typography>
-            <Select
-                value={selected}
-                onChange={onChange}>
-                <MenuItem value="none">None</MenuItem>
-                { categoryMenuItems }
-            </Select>
+        <div className="select-input category-picker">
+            <div>
+                <Typography variant="caption">{label}</Typography>
+                <Select
+                    value={selected}
+                    onChange={onChange}>
+                    <MenuItem value="none">None</MenuItem>
+                    { categoryMenuItems }
+                </Select>
+            </div>
+            <Button onClick={onRemove}>Remove</Button>
         </div>
     )
 }

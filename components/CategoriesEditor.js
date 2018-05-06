@@ -23,9 +23,18 @@ export default ({jsonFeed, updateJsonFeed})=>{
             updateJsonFeed(newFeed);
         };
 
+        const removeSubcategory = (categoryIndex, subcategoryIndex) => {
+            const newFeed = {...jsonFeed};
+            newFeed.categories = [...jsonFeed.categories];
+            const newSubcategories = [...newFeed.categories[categoryIndex].subcategories]
+            newSubcategories.splice(subcategoryIndex, 1);
+            newFeed.categories[categoryIndex].subcategories = newSubcategories;
+            updateJsonFeed(newFeed);
+        }
+
         return (
             <div>
-                <CategoryPicker label="Subcategory" value={subcategory.categoryName} onChange={(e)=>onSubcategoryChange(e, subcategoryIndex)} categoryOptions={subCategoryOptions}/>
+                <CategoryPicker label="Subcategory" value={subcategory.categoryName} onChange={(e)=>onSubcategoryChange(e, subcategoryIndex)} categoryOptions={subCategoryOptions} onRemove={()=>removeSubcategory(categoryIndex, subcategoryIndex)}/>
             </div>);
     }
 
@@ -54,9 +63,17 @@ export default ({jsonFeed, updateJsonFeed})=>{
             updateJsonFeed(newFeed);
         }
 
+        const removeCategory = (index) => {
+            const newFeed = {...jsonFeed};
+            const newCategories = [...jsonFeed.categories];
+            newCategories.splice(index, 1);
+            newFeed.categories = newCategories;
+            updateJsonFeed(newFeed);
+        };
+
         return (
             <div>
-                <CategoryPicker label="Category" value={category.categoryName} onChange={(e)=>onCategoryChange(e, index)} categoryOptions={categories}/>
+                <CategoryPicker label="Category" value={category.categoryName} onChange={(e)=>onCategoryChange(e, index)} categoryOptions={categories} onRemove={()=>removeCategory(index)}/>
                 {subCategoryForms}
                 <Button onClick={()=>addSubcategory(index)}>Add Subcategory</Button>
             </div>);
