@@ -169,7 +169,7 @@ export const addEpisode = (jsonFeed) => {
     return {
         ...jsonFeed,
         episodes: [
-            createEmptyJsonEpisode(),
+            createEmptyJsonEpisode(jsonFeed),
             ...jsonFeed.episodes
         ]
     }

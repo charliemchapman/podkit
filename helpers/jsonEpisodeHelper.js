@@ -31,10 +31,11 @@ function getJsonEnclosure(xmlEpisode) {
     return { url: '', length: '', type: '' };
 }
 
-export const createEmptyJsonEpisode = () => {
+export const createEmptyJsonEpisode = (jsonFeed) => {
     return {
-        title: "New Episode",
+        title: "",
         pubDate: moment().utc().format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
+        image: jsonFeed.image,
         link: "",
         guid: uuidv4(),
         description: "",
