@@ -46,7 +46,6 @@ class FeedEditor extends React.Component {
                 <img src={imageUrl} alt="Feed Image"/>
             </div>
         );
-
     }
 
     getForm(label, property){
