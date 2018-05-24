@@ -95,25 +95,15 @@ class EpisodeEditor extends React.Component {
         return <LabelInput label={label} value={value} onChange={onChange} multiline={true}/>
     }
 
-    getEpisodeImageForm(){
-        const { episodeJson, updateEpisode } = this.props;
+    getImageDisplay(){
+        const episodeFeed = this.props.episodeJson;
+        const imageUrl = episodeFeed.image;
 
-        const onChange = (e)=>{
-            const newValue = e.target.value;
-            const newEpisode = {...episodeJson}
-            newEpisode.image =  newValue;
-            updateEpisode(newEpisode);
-        };
-        const value = episodeJson.image;
-        
         return (
-            <div className="episode-image">
-                <div className="episode-image__img">
-                    <img src={value} alt={'episode image'}/>
-                </div>
-                <LabelInput label={'image'} value={value} onChange={onChange}/>
+            <div className="episode-image__img">
+                <img src={imageUrl} alt="Episode Image"/>
             </div>
-        )
+        );
     }
 
     getDescriptionEditor(){
@@ -145,11 +135,14 @@ class EpisodeEditor extends React.Component {
     getEpisodeForm() {
         return (
             <div className="feed-settings">
+                <section className="feed-image">
+                    { this.getImageDisplay() }
+                </section>
                 <section className="simple-fields">
-                    { this.getEpisodeImageForm() }
                     {this.getChannelItemForm('Title', 'title')}
                     {this.getEnclosureAttributeForm('Audio Url', 'url')}
                     {this.getEnclosureAttributeForm('Audio Length', 'length')}
+                    {this.getChannelItemForm('Image', 'image')}
                     {this.getEnclosureTypeForm()}
                     {this.getChannelItemForm('pubDate', 'pubDate')}
                     {this.getChannelItemForm('Guid', 'guid')}

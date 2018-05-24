@@ -1,12 +1,12 @@
 .episode-image {
-    display: flex;
-    align-items: flex-end;
+    float: right;
+    width: 30%;
+    padding: 0 10px;
 
     &__img {
-        height: 100px;
-        width: 100px;
         overflow: hidden;
         margin-right: 10px;
+        display: inline;
 
         img {
             width: 100%;
