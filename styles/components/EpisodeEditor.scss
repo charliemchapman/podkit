@@ -8,6 +8,10 @@
         margin-right: 10px;
         display: inline;
 
+        &--no-image {
+            display: none;
+        }
+
         img {
             width: 100%;
         }

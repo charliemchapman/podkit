@@ -98,9 +98,9 @@ class EpisodeEditor extends React.Component {
     getImageDisplay(){
         const episodeFeed = this.props.episodeJson;
         const imageUrl = episodeFeed.image;
-
+        const imageClassName= imageUrl.length > 0 ? "episode-image__img" : "episode-image__img--no-image"
         return (
-            <div className="episode-image__img">
+            <div className={imageClassName}>
                 <img src={imageUrl}/>
             </div>
         );
