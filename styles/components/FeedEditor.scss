@@ -1,0 +1,19 @@
+.feed-image {
+    float: right;
+    width: 35%;
+    //align-items: flex-end;
+
+    &__img {
+        overflow: hidden;
+        margin-right: 10px;
+        display: inline;
+
+        img {
+            width: 100%;
+        }
+    }
+
+    .label-input {
+        flex-grow: 1;
+    }
+}
