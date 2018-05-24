@@ -101,7 +101,7 @@ class EpisodeEditor extends React.Component {
 
         return (
             <div className="episode-image__img">
-                <img src={imageUrl} alt="Episode Image"/>
+                <img src={imageUrl}/>
             </div>
         );
     }
