@@ -48,25 +48,6 @@ class FeedEditor extends React.Component {
         );
 
     }
-    getImageForm(){
-        const { jsonFeed, updateJsonFeed } = this.props;
-
-        const onChange = (e) => {
-            const newFeed = { ...jsonFeed };
-            newFeed.image = e.target.value;
-            updateJsonFeed(newFeed);
-        }
-        const value = jsonFeed.image;
-        
-        return (
-            <div className="episode-image">
-                <div className="episode-image__img">
-                    <img src={value} alt={'episode image'}/>
-                </div>
-                <LabelInput label={'image'} value={value} onChange={onChange}/>
-            </div>
-        )
-    }
 
     getForm(label, property){
         const jsonFeed = this.props.jsonFeed;
