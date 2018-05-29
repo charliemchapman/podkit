@@ -134,7 +134,7 @@ class FeedEditor extends React.Component {
                     { this.getMultilineForm('Subtitle', 'subtitle') }
                     { this.getForm('Author', 'author') }
                     { this.getOwnerForm() }
-                    { this.getForm('Summary', 'summary') }
+                    { this.getForm('Description', 'description') }
                     <CategoriesEditor jsonFeed={this.props.jsonFeed} updateJsonFeed={this.props.updateJsonFeed}/>
                     { this.getExplicitForm() }
                 </section>
