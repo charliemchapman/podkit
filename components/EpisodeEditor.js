@@ -135,18 +135,18 @@ class EpisodeEditor extends React.Component {
     getEpisodeForm() {
         return (
             <div className="feed-settings">
-                <section className="feed-image">
+                <section className="episode-image">
                     { this.getImageDisplay() }
                 </section>
                 <section className="simple-fields">
                     {this.getChannelItemForm('Title', 'title')}
                     {this.getEnclosureAttributeForm('Audio Url', 'url')}
-                    {this.getEnclosureAttributeForm('Audio Length', 'length')}
-                    {this.getChannelItemForm('Image', 'image')}
+                    {this.getChannelItemForm('Image', 'image')}                    
                     {this.getEnclosureTypeForm()}
                     {this.getChannelItemForm('pubDate', 'pubDate')}
                     {this.getChannelItemForm('Guid', 'guid')}
                     {this.getChannelItemForm('link', 'link')}
+                    {this.getEnclosureAttributeForm('Audio Length', 'length')}
                     {this.getChannelItemForm('itunes:duration', 'duration')}
                     {this.getExplicitForm()}
                     {this.getChannelItemForm('itunes:episodeType', 'episodeType')}
