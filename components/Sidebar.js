@@ -31,7 +31,7 @@ class Editor extends React.Component {
             const onFeedSettingsClick = ()=> onSelectionChanged(-1);
             const selectedClass = selectedEpisodeIndex === -1 ? 'sidebar__episode--selected' : '';
             feedSettingsButton = (
-                <ListItem button onClick={onFeedSettingsClick}>
+                <ListItem button onClick={onFeedSettingsClick} className={selectedClass}>
                     <ListItemIcon><ArtTrackIcon/></ListItemIcon>
                     <ListItemText primary="Feed Settings" />
                 </ListItem>);
@@ -40,7 +40,7 @@ class Editor extends React.Component {
                 const onEpisodeClick = ()=> onSelectionChanged(index);
                 const selectedClass = selectedEpisodeIndex === index ? 'sidebar__episode--selected' : '';
                 return (
-                    <ListItem button onClick={onEpisodeClick}>
+                    <ListItem button onClick={onEpisodeClick} className={selectedClass}>
                         <ListItemText primary={episode.title} />
                     </ListItem>
                 );
