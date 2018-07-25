@@ -1,0 +1,19 @@
+.episode-image {
+    display: flex;
+    align-items: flex-end;
+
+    &__img {
+        height: 100px;
+        width: 100px;
+        overflow: hidden;
+        margin-right: 10px;
+
+        img {
+            width: 100%;
+        }
+    }
+
+    .label-input {
+        flex-grow: 1;
+    }
+}
