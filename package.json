@@ -1,6 +1,6 @@
 {
   "name": "podkit",
-  "productName": "podkit",
+  "productName": "Podkit",
   "version": "1.0.0",
   "description": "My Electron application description",
   "main": "src/index.js",
@@ -30,10 +30,10 @@
       },
       "electronPackagerConfig": {
         "packageManager": "npm",
-        "icon": "./src/resources/podkit-icon.png"
+        "icon": "./src/resources/podkit-icon"
       },
       "electronWinstallerConfig": {
-        "name": "podkit"
+        "name": "Podkit"
       },
       "electronInstallerDebian": {},
       "electronInstallerRedhat": {},
@@ -43,7 +43,7 @@
       },
       "windowsStoreConfig": {
         "packageName": "",
-        "name": "podkit"
+        "name": "Podkit"
       }
     }
   },
