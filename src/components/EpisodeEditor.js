@@ -66,7 +66,7 @@ class EpisodeEditor extends React.Component {
             <div>
             <LabelInput label={"Audio Url"} value={value} onChange={onChange}/>  
             
-            <Button onClick={handleClickOpen}>Test</Button>
+            <Button onClick={handleClickOpen} color="primary">Test</Button>
             <Dialog open={this.state.open} onClose={handleClose} aria-labelledby="audio-url-title">
                     <DialogTitle id="audio-url-title">Listen</DialogTitle>
                     <DialogContent>
