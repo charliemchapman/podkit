@@ -5,7 +5,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { episodeJsonToXmlFeed } from '../helpers/jsonEpisodeHelper';
 import HtmlEditor from './HtmlEditor';
 import YesNoPicker from './YesNoPicker';
-import { Select, MenuItem, Typography, TextField, Button, IconButton } from 'material-ui';
+import { Select, MenuItem, Typography, TextField, Button, IconButton, Dialog, DialogActions, DialogContent, DialogTitle,DialogContentText } from 'material-ui';
+import ReactAudioPlayer from 'react-audio-player';
 
 const xml2js = require('xml2js');
 
@@ -13,7 +14,8 @@ class EpisodeEditor extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            isDescriptionEditorOpen: false
+            isDescriptionEditorOpen: false,
+            open: false
         }
     }
 
@@ -41,6 +43,42 @@ class EpisodeEditor extends React.Component {
         };
         const value = episodeJson.enclosure[enclosureAttribute];
         return <LabelInput label={label} value={value} onChange={onChange}/>
+    }
+
+    getAudioUrlForm(enclosureAttribute){
+        const { episodeJson, updateEpisode } = this.props;   
+        var handleClickOpen = () => {
+            this.setState({ open: true });
+          };
+        
+        var handleClose = () => {
+            this.setState({ open: false });
+          };
+        const onChange = (e)=>{
+            const newValue = e.target.value;
+            const newEpisode = {...episodeJson, enclosure: {...episodeJson.enclosure}}
+            newEpisode.enclosure['url'] =  newValue;
+            updateEpisode(newEpisode);
+        };  
+
+        const value = episodeJson.enclosure['url'];
+        return (
+            <div>
+            <LabelInput label={"Audio Url"} value={value} onChange={onChange}/>  
+            
+            <Button onClick={handleClickOpen}>Test</Button>
+            <Dialog open={this.state.open} onClose={handleClose} aria-labelledby="audio-url-title">
+                    <DialogTitle id="audio-url-title">Listen</DialogTitle>
+                    <DialogContent>
+                        <ReactAudioPlayer src={value} autoplay="true" controls="true"/>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleClose} color="primary">Done</Button>
+                    </DialogActions>
+                </Dialog>  
+            
+        </div>
+    );
     }
 
     getEnclosureTypeForm(){
@@ -148,7 +186,7 @@ class EpisodeEditor extends React.Component {
                 <section className="simple-fields">
                     { this.getEpisodeImageForm() }
                     {this.getChannelItemForm('Title', 'title')}
-                    {this.getEnclosureAttributeForm('Audio Url', 'url')}
+                    {this.getAudioUrlForm()}
                     {this.getEnclosureAttributeForm('Audio Length', 'length')}
                     {this.getEnclosureTypeForm()}
                     {this.getChannelItemForm('pubDate', 'pubDate')}
