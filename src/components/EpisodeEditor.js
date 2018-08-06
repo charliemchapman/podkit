@@ -68,7 +68,6 @@ class EpisodeEditor extends React.Component {
             
                 <Button onClick={handleClickOpen} variant="raised" color="primary">Test</Button>
                 <Dialog open={this.state.open} onClose={handleClose} aria-labelledby="audio-url-title">
-                    <DialogTitle id="audio-url-title">Listen</DialogTitle>
                     <DialogContent>
                         <ReactAudioPlayer src={value} autoplay="true" controls="true"/>
                     </DialogContent>
