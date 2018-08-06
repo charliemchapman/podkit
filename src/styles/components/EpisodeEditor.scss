@@ -22,5 +22,13 @@
     display: inline-block;
     width: 100%;
 
-    
+    .label-input {
+        float: left;
+        width: 86%;
+    }
+
+    button {
+        margin-top: 27px;
+        float: right;
+    }
 }
