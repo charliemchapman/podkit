@@ -63,11 +63,11 @@ class EpisodeEditor extends React.Component {
 
         const value = episodeJson.enclosure['url'];
         return (
-            <div>
-            <LabelInput label={"Audio Url"} value={value} onChange={onChange}/>  
+            <div class="audio-url">
+                <LabelInput label={"Audio Url"} value={value} onChange={onChange}/>  
             
-            <Button onClick={handleClickOpen} color="primary">Test</Button>
-            <Dialog open={this.state.open} onClose={handleClose} aria-labelledby="audio-url-title">
+                <Button onClick={handleClickOpen} variant="raised" color="primary">Test</Button>
+                <Dialog open={this.state.open} onClose={handleClose} aria-labelledby="audio-url-title">
                     <DialogTitle id="audio-url-title">Listen</DialogTitle>
                     <DialogContent>
                         <ReactAudioPlayer src={value} autoplay="true" controls="true"/>
@@ -76,9 +76,8 @@ class EpisodeEditor extends React.Component {
                         <Button onClick={handleClose} color="primary">Done</Button>
                     </DialogActions>
                 </Dialog>  
-            
-        </div>
-    );
+            </div>
+        );
     }
 
     getEnclosureTypeForm(){
