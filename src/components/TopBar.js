@@ -1,10 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { withStyles } from 'material-ui/styles';
-import { AppBar, Toolbar, IconButton, Button, TextField, Typography, Icon } from 'material-ui';
-import MenuIcon from '@material-ui/icons/Menu';
-import InsertDriveFile from '@material-ui/icons/InsertDriveFile';
-import NoteAdd from '@material-ui/icons/NoteAdd';
+import { AppBar, Toolbar, IconButton, Typography } from 'material-ui';
+// import MenuIcon from '@material-ui/icons/Menu';
 
 const styles = {
     root: {
@@ -28,7 +25,7 @@ const TopBar = ({classes, onOpen, onCreateNew, onMenuClicked, children}) => {
             <AppBar position="static">
                 <Toolbar>
                     <IconButton onClick={onMenuClicked} className={classes.menuButton} color="inherit" aria-label="Menu">
-                        <MenuIcon />
+                        {/* <MenuIcon /> */}
                     </IconButton>
                     <Typography variant="title" color="inherit" className={classes.flex}>
                         PodKit

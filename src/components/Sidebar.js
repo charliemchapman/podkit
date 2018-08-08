@@ -1,15 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import EpisodeEditor from './EpisodeEditor';
-import FeedEditor from './FeedEditor';
-import Button from 'material-ui/Button';
-import Typography from 'material-ui/Typography';
-import Drawer from 'material-ui/Drawer';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import { withStyles } from 'material-ui/styles';
-import ArtTrackIcon from '@material-ui/icons/ArtTrack';
-import MicIcon from '@material-ui/icons/Mic';
+// import ArtTrackIcon from '@material-ui/icons/ArtTrack';
 
 const drawerWidth = 240;
 
@@ -32,7 +25,7 @@ class Editor extends React.Component {
             const selectedClass = selectedEpisodeIndex === -1 ? 'sidebar__episode--selected' : '';
             feedSettingsButton = (
                 <ListItem button onClick={onFeedSettingsClick} className={selectedClass}>
-                    <ListItemIcon><ArtTrackIcon/></ListItemIcon>
+                    {/* <ListItemIcon><ArtTrackIcon/></ListItemIcon> */}
                     <ListItemText primary="Feed Settings" />
                 </ListItem>);
 

@@ -1,7 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import LabelInput from './LabelInput';
-import DeleteIcon from '@material-ui/icons/Delete';
+// import DeleteIcon from '@material-ui/icons/Delete';
 import { episodeJsonToXmlFeed } from '../helpers/jsonEpisodeHelper';
 import HtmlEditor from './HtmlEditor';
 import YesNoPicker from './YesNoPicker';
@@ -238,7 +237,7 @@ class EpisodeEditor extends React.Component {
                 <div className="episode-editor__header">
                     <Typography variant="headline">{episodeJson.title}</Typography>
                     <IconButton onClick={deleteEpisode} color="inherit" aria-label="Delete">
-                        <DeleteIcon />
+                        {/* <DeleteIcon /> */}
                     </IconButton>
                 </div>
                 { this.getEpisodeForm() }
