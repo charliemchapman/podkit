@@ -1,7 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { jsonToXmlFeed } from '../helpers/jsonFeedHelper';
-import * as moment from 'moment';
+const moment = require('moment');
 const xml2js = require('xml2js');
 
 export default ({jsonFeed})=>{

@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+const moment = require('moment');
 const uuidv4 = require('uuid/v4');
 
 export const xmlEpisodeToJson = (xmlEpisode) => {

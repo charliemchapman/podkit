@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import CssBaseline from 'material-ui/CssBaseline';
 import TopBar from './TopBar';
 import Editor from './Editor';
@@ -9,11 +8,11 @@ import Button from 'material-ui/Button';
 import RSSHelper from '../helpers/RSSHelper';
 import { createJsonFeed, jsonToXmlFeed, addEpisode, createEmptyJsonFeed } from '../helpers/jsonFeedHelper';
 import XmlPreview from './XmlPreview';
-import * as moment from 'moment';
 
 // const { dialog } = require('electron').remote;
 // const fs = require("fs");
 const xml2js = require('xml2js');
+const moment = require('moment');
 
 class App extends React.Component {
     constructor(props){

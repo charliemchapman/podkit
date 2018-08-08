@@ -1,4 +1,3 @@
-import * as moment from 'moment';
 import { xmlEpisodeToJson, episodeJsonToXmlFeed, createEmptyJsonEpisode } from './jsonEpisodeHelper';
 
 function getXmlChannelValue(xmlFeed, channelAttr) {
