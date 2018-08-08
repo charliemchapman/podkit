@@ -30,7 +30,10 @@
       },
       "electronPackagerConfig": {
         "packageManager": "npm",
-        "icon": "./src/resources/podkit-icon"
+        "icon": "./src/resources/podkit_icon.ico",
+        "asar": {
+          "unpackDir": "./src/electron/"
+        }
       },
       "electronWinstallerConfig": {
         "name": "Podkit"
@@ -42,7 +45,7 @@
         "name": ""
       },
       "windowsStoreConfig": {
-        "packageName": "",
+        "packageName": "Podkit",
         "name": "Podkit"
       }
     }
