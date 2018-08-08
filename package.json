@@ -49,6 +49,7 @@
   },
   "dependencies": {
     "@material-ui/icons": "^1.0.0-beta.42",
+    "@material-ui/core": "^1.4.1",
     "ajv": "^6.4.0",
     "draft-js": "^0.10.5",
     "draftjs-to-html": "^0.8.3",
@@ -69,7 +70,6 @@
     "xml2js": "^0.4.19"
   },
   "devDependencies": {
-    "@material-ui/core": "^1.4.1",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-plugin-transform-es2015-classes": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
