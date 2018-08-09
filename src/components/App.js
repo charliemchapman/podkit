@@ -22,7 +22,8 @@ class App extends React.Component {
             feed: null,
             selectedEpisodeIndex: -1,
             isSidebarVisible: true,
-            isXmlPreviewOpen: false
+            isXmlPreviewOpen: false,
+            isDirty: false
         }
 
         this.openFile = this.openFile.bind(this);
@@ -48,7 +49,7 @@ class App extends React.Component {
 
     updateJsonFeed(updatedJsonFeed){
         const xmlFeed = jsonToXmlFeed(updatedJsonFeed);
-        this.setState({ feed: xmlFeed, jsonFeed: updatedJsonFeed });
+        this.setState({ feed: xmlFeed, jsonFeed: updatedJsonFeed, isDirty: true });
     }
 
     deleteEpisode(index){
@@ -58,13 +59,13 @@ class App extends React.Component {
         if (confirmed){
             const newJsonFeed = {...jsonFeed, episodes: [...jsonFeed.episodes]};
             newJsonFeed.episodes.splice(selectedEpisodeIndex, 1);
-            this.setState({ jsonFeed: newJsonFeed, selectedEpisodeIndex: -1 })
+            this.setState({ jsonFeed: newJsonFeed, selectedEpisodeIndex: -1, isDirty: true })
         }
     }
 
     newFile(){
         const newJson = createEmptyJsonFeed();
-        this.setState({ feed: jsonToXmlFeed(newJson), jsonFeed: newJson, isSidebarVisible: true });
+        this.setState({ feed: jsonToXmlFeed(newJson), jsonFeed: newJson, isSidebarVisible: true, isDirty: true });
     }
 
     openNewFile(fileString) {
@@ -86,6 +87,7 @@ class App extends React.Component {
 
     saveFile(fileString) {
         this.props.saveFile(fileString);
+        this.setState({isDirty: false});
     }
 
     saveAs() {
@@ -100,7 +102,9 @@ class App extends React.Component {
     }
 
     onClose() {
-        this.setState({xmlString: null, feed: null, jsonFeed: null, selectedEpisodeIndex: -1});
+        if(shouldDiscardUnsavedChanges()) {
+            this.setState({xmlString: null, feed: null, jsonFeed: null, selectedEpisodeIndex: -1});
+        }
     }
 
     onEpisodeSelectionChange(episodeIndex){
@@ -130,6 +134,13 @@ class App extends React.Component {
                 openFile={ this.openFile }
                 selectedEpisodeIndex={ this.state.selectedEpisodeIndex } 
                 onSelectionChanged={ this.onEpisodeSelectionChange }/>);
+    }
+
+    shouldDiscardUnsavedChanges() {
+        if(this.state.isDirty){
+            return confirm(`You have unsaved changes. Are you sure you want to close this?`);
+        }
+        return true;
     }
 
     render() {
