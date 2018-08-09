@@ -12,13 +12,12 @@
     "lint": "eslint --cache --color --ext .jsx,.js src"
   },
   "keywords": [],
-  "author": "CharlieMacbook",
+  "author": "CharlieAndMatt",
   "license": "MIT",
   "config": {
     "forge": {
       "make_targets": {
         "win32": [
-          "squirrel",
           "appx"
         ],
         "darwin": [
@@ -31,7 +30,7 @@
       },
       "electronPackagerConfig": {
         "packageManager": "npm",
-        "icon": "./src/resources/podkit_icon.ico",
+        "icon": "./src/resources/podkit-icon.",
         "asar": {
           "unpackDir": "./src/electron/"
         }
