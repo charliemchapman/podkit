@@ -102,7 +102,7 @@ class App extends React.Component {
     }
 
     onClose() {
-        if(shouldDiscardUnsavedChanges()) {
+        if(this.shouldDiscardUnsavedChanges()) {
             this.setState({xmlString: null, feed: null, jsonFeed: null, selectedEpisodeIndex: -1});
         }
     }
