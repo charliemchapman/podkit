@@ -1,13 +1,16 @@
 import React from 'react';
 import LabelInput from './LabelInput';
+import LabelDateTimePicker from './LabelDateTimePicker';
 // import DeleteIcon from '@material-ui/icons/Delete';
 import { episodeJsonToXmlFeed } from '../helpers/jsonEpisodeHelper';
 import HtmlEditor from './HtmlEditor';
 import YesNoPicker from './YesNoPicker';
-import { Select, MenuItem, Typography, TextField, Button, IconButton, Dialog, DialogActions, DialogContent, DialogTitle,DialogContentText } from 'material-ui';
+import { Select, MenuItem, Typography, Button, IconButton, Dialog, DialogActions, DialogContent, DialogTitle,DialogContentText } from 'material-ui';
 import ReactAudioPlayer from 'react-audio-player';
+import { isMoment } from '../../node_modules/moment';
 
 const xml2js = require('xml2js');
+const moment = require('moment');
 
 class EpisodeEditor extends React.Component {
     constructor(props){
@@ -29,6 +32,20 @@ class EpisodeEditor extends React.Component {
         };
         const value = episodeJson[channelItem];
         return <LabelInput label={label} value={value} onChange={onChange}/>
+    }
+
+    getDateTimeItemForm(label, channelItem) {
+        const { episodeJson, updateEpisode } = this.props;
+
+        const onChange = (e)=>{
+            const newValue = e.target.value;
+            const formattedNewValue = moment(newValue).format('ddd, DD MMM YYYY HH:mm:ss ZZ');
+            const newEpisode = {...episodeJson}
+            newEpisode[channelItem] =  formattedNewValue;
+            updateEpisode(newEpisode);
+        };
+        const value = episodeJson[channelItem];
+        return <LabelDateTimePicker label={label} value={value} onChange={onChange}/>
     }
 
     getEnclosureAttributeForm(label, enclosureAttribute){
@@ -62,7 +79,7 @@ class EpisodeEditor extends React.Component {
 
         const value = episodeJson.enclosure['url'];
         return (
-            <div class="audio-url">
+            <div className="audio-url">
                 <LabelInput label={"Audio Url"} value={value} onChange={onChange}/>  
             
                 <Button onClick={handleClickOpen} variant="raised" color="primary">Test</Button>
@@ -186,7 +203,7 @@ class EpisodeEditor extends React.Component {
                     {this.getAudioUrlForm()}
                     {this.getEnclosureAttributeForm('Audio Length', 'length')}
                     {this.getEnclosureTypeForm()}
-                    {this.getChannelItemForm('pubDate', 'pubDate')}
+                    {this.getDateTimeItemForm('pubDate', 'pubDate')}
                     {this.getChannelItemForm('Guid', 'guid')}
                     {this.getChannelItemForm('link', 'link')}
                     {this.getChannelItemForm('itunes:duration', 'duration')}
