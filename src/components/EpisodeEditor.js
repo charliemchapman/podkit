@@ -241,8 +241,8 @@ class EpisodeEditor extends React.Component {
                     </IconButton>
                 </div>
                 { this.getEpisodeForm() }
-                <Typography variant="display1">XML Preview</Typography>
-                { this.getEpisodeXml() }
+                {/* <Typography variant="display1">XML Preview</Typography> */}
+                {/* { this.getEpisodeXml() } */}
             </div>
         );
     }

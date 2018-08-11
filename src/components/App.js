@@ -162,7 +162,7 @@ class App extends React.Component {
             <CssBaseline />
             <div className="app">
                 <TopBar onMenuClicked={this.toggleSidebar}>
-                    <Button color="inherit" onClick={this.toggleXmlPreview}>XML Preview</Button>
+                    {/* <Button color="inherit" onClick={this.toggleXmlPreview}>XML Preview</Button> */}
                     <Button color="inherit" onClick={this.addNewEpisode}>ADD EPISODE</Button>
                     <Button color="inherit" onClick={this.onClose}>CLOSE</Button>
                     <Button color="inherit" onClick={this.saveAs}>SAVE</Button>
