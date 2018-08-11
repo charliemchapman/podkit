@@ -156,6 +156,7 @@ class App extends React.Component {
         }
 
         const xmlPreview = this.state.isXmlPreviewOpen ? <XmlPreview jsonFeed={this.state.jsonFeed}/> : '';
+        const saveStar = this.state.isDirty ? '*' : '';
 
         return (
             <React.Fragment>
@@ -165,7 +166,7 @@ class App extends React.Component {
                     {/* <Button color="inherit" onClick={this.toggleXmlPreview}>XML Preview</Button> */}
                     <Button color="inherit" onClick={this.addNewEpisode}>ADD EPISODE</Button>
                     <Button color="inherit" onClick={this.onClose}>CLOSE</Button>
-                    <Button color="inherit" onClick={this.saveAs}>SAVE</Button>
+                    <Button color="inherit" onClick={this.saveAs}>SAVE {saveStar}</Button>
                 </TopBar>
                 <div className="app-body">
                     {this.getSidebar()}
